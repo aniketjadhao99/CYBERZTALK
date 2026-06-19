@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Cyberztalk</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#006688",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#00c2ff",
+                        secondary: "#006b5f",
+                        surface: "#faf8ff",
+                        "on-surface": "#131b2e",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --primary: #006688;
+        }
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        .nav-item {
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        .status-new { background-color: #dbeafe; color: #1e40af; }
+        .status-assigned { background-color: #fed7aa; color: #92400e; }
+        .status-in-progress { background-color: #fcd34d; color: #78350f; }
+        .status-escalated { background-color: #fecaca; color: #991b1b; }
+        .status-under-review { background-color: #e9d5ff; color: #6b21a8; }
+        .status-resolved { background-color: #dcfce7; color: #166534; }
+        .status-closed { background-color: #e5e7eb; color: #374151; }
+    </style>
+</head>
+<body class="bg-surface">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                        <span class="text-white font-bold">C</span>
+                    </div>
+                    <span class="text-xl font-bold text-primary">Cyberztalk</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="index.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Home</a>
+                    <a href="features.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Features</a>
+                    <a href="report-incident.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Report Incident</a>
+                    <a href="resources.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Resources</a>
+                    <a href="about-us.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">About Us</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button id="navLogoutBtn" class="text-primary text-sm font-medium hover:text-on-surface" onclick="handleLogout()">Logout</button>
+                    <span id="navUserName" class="text-on-surface text-sm font-medium"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Header Section -->
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-4xl font-bold text-on-surface mb-2">Dashboard</h1>
+                <p class="text-on-surface">Welcome to your Cyberztalk victim assistance dashboard</p>
+            </div>
+            <button onclick="window.location.href='report-incident.html'" class="bg-primary text-white px-6 py-3 rounded font-medium hover:bg-on-surface transition">
+                + Report New Incident
+            </button>
+        </div>
+
+        <!-- Profile Card -->
+        <section class="bg-white rounded-lg shadow-sm p-8 mb-8">
+            <h2 class="text-2xl font-bold text-primary mb-6">Your Profile</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-sm text-on-surface font-semibold">Full Name</label>
+                        <p id="profileName" class="text-on-surface text-lg">-</p>
+                    </div>
+                    <div>
+                        <label class="text-sm text-on-surface font-semibold">Email Address</label>
+                        <p id="profileEmail" class="text-on-surface text-lg">-</p>
+                    </div>
+                    <div>
+                        <label class="text-sm text-on-surface font-semibold">Phone Number</label>
+                        <p id="profilePhone" class="text-on-surface text-lg">-</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-sm text-on-surface font-semibold">Location</label>
+                        <p id="profileLocation" class="text-on-surface text-lg">-</p>
+                    </div>
+                    <div>
+                        <label class="text-sm text-on-surface font-semibold">Member Since</label>
+                        <p id="profileMemberSince" class="text-on-surface text-lg">-</p>
+                    </div>
+                    <div>
+                        <label class="text-sm text-on-surface font-semibold">Total Cases Reported</label>
+                        <p id="profileCasesCount" class="text-on-surface text-lg font-bold text-primary">0</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded flex items-center justify-center">
+                        <span class="material-symbols-outlined text-blue-600">assignment</span>
+                    </div>
+                    <div>
+                        <p class="text-sm text-on-surface opacity-70">Total Cases</p>
+                        <p id="statTotal" class="text-2xl font-bold text-on-surface">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-yellow-100 rounded flex items-center justify-center">
+                        <span class="material-symbols-outlined text-yellow-600">schedule</span>
+                    </div>
+                    <div>
+                        <p class="text-sm text-on-surface opacity-70">Pending</p>
+                        <p id="statPending" class="text-2xl font-bold text-on-surface">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-green-100 rounded flex items-center justify-center">
+                        <span class="material-symbols-outlined text-green-600">check_circle</span>
+                    </div>
+                    <div>
+                        <p class="text-sm text-on-surface opacity-70">Resolved</p>
+                        <p id="statResolved" class="text-2xl font-bold text-on-surface">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-red-100 rounded flex items-center justify-center">
+                        <span class="material-symbols-outlined text-red-600">error</span>
+                    </div>
+                    <div>
+                        <p class="text-sm text-on-surface opacity-70">Escalated</p>
+                        <p id="statEscalated" class="text-2xl font-bold text-on-surface">0</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cases Table -->
+        <section class="bg-white rounded-lg shadow-sm p-8">
+            <h2 class="text-2xl font-bold text-primary mb-6">My Cases</h2>
+            
+            <div id="loadingSpinner" class="text-center py-8">
+                <span class="material-symbols-outlined animate-spin text-primary text-3xl">hourglass_top</span>
+                <p class="text-on-surface mt-2">Loading your cases...</p>
+            </div>
+
+            <div id="noCasesMessage" class="text-center py-8 hidden">
+                <span class="material-symbols-outlined text-4xl text-on-surface opacity-30 block mb-2">folder_open</span>
+                <p class="text-on-surface">You haven't reported any incidents yet.</p>
+                <button onclick="window.location.href='report-incident.html'" class="mt-4 text-primary font-semibold hover:underline">
+                    Report your first incident →
+                </button>
+            </div>
+
+            <div id="casesTableContainer" class="overflow-x-auto hidden">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b-2 border-gray-200">
+                            <th class="text-left py-3 px-4 text-on-surface font-semibold">Case ID</th>
+                            <th class="text-left py-3 px-4 text-on-surface font-semibold">Incident Type</th>
+                            <th class="text-left py-3 px-4 text-on-surface font-semibold">Reported Date</th>
+                            <th class="text-left py-3 px-4 text-on-surface font-semibold">Status</th>
+                            <th class="text-left py-3 px-4 text-on-surface font-semibold">Priority</th>
+                            <th class="text-left py-3 px-4 text-on-surface font-semibold">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="casesTableBody">
+                        <!-- Cases will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-on-surface text-white py-16 px-4 sm:px-6 lg:px-8 mt-16">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                            <span class="text-white font-bold">C</span>
+                        </div>
+                        <span class="text-xl font-bold">Cyberztalk</span>
+                    </div>
+                    <p class="text-sm text-gray-300">Intelligent cybersecurity assistance, empowering you to navigate the digital world safely.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider">LEGAL</h3>
+                    <ul class="space-y-2">
+                        <li><a href="privacy-policy.html" class="text-sm text-gray-300 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html" class="text-sm text-gray-300 hover:text-white">Terms of Service</a></li>
+                        <li><a href="cookie-policy.html" class="text-sm text-gray-300 hover:text-white">Cookie Policy</a></li>
+                        <li><a href="compliance.html" class="text-sm text-gray-300 hover:text-white">Compliance</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider">CONNECT</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">LinkedIn</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">X (Twitter)</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Instagram</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-sm text-gray-400">© 2024 Cyberztalk Intelligence. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script>
+        // Check if user is logged in
+        window.addEventListener('DOMContentLoaded', function() {
+            const authToken = localStorage.getItem('authToken');
+            const currentUser = localStorage.getItem('currentUser');
+            
+            if (!authToken || !currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const user = JSON.parse(currentUser);
+            document.getElementById('navUserName').textContent = user.name;
+
+            // Load user profile
+            loadUserProfile(user);
+
+            // Load user cases
+            loadUserCases();
+        });
+
+        function loadUserProfile(user) {
+            document.getElementById('profileName').textContent = user.name || '-';
+            document.getElementById('profileEmail').textContent = user.email || '-';
+            document.getElementById('profilePhone').textContent = user.phone || '-';
+            document.getElementById('profileLocation').textContent = user.location || '-';
+            
+            const memberSince = new Date(user.createdAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('profileMemberSince').textContent = memberSince;
+        }
+
+        async function loadUserCases() {
+            try {
+                const authToken = localStorage.getItem('authToken');
+                const response = await fetch('/api/cases/user', {
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to load cases');
+                }
+
+                const cases = await response.json();
+                document.getElementById('loadingSpinner').classList.add('hidden');
+
+                if (cases.length === 0) {
+                    document.getElementById('noCasesMessage').classList.remove('hidden');
+                    return;
+                }
+
+                // Update statistics
+                const stats = {
+                    total: cases.length,
+                    pending: cases.filter(c => ['new', 'assigned', 'in-progress'].includes(c.status)).length,
+                    resolved: cases.filter(c => c.status === 'resolved').length,
+                    escalated: cases.filter(c => c.status === 'escalated').length
+                };
+
+                document.getElementById('statTotal').textContent = stats.total;
+                document.getElementById('statPending').textContent = stats.pending;
+                document.getElementById('statResolved').textContent = stats.resolved;
+                document.getElementById('statEscalated').textContent = stats.escalated;
+                document.getElementById('profileCasesCount').textContent = stats.total;
+
+                // Populate table
+                const tableBody = document.getElementById('casesTableBody');
+                tableBody.innerHTML = '';
+
+                cases.forEach(caseItem => {
+                    const row = document.createElement('tr');
+                    row.className = 'border-b border-gray-200 hover:bg-gray-50 transition';
+
+                    const reportedDate = new Date(caseItem.createdAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    });
+
+                    const incidentTypes = Array.isArray(caseItem.incidentType) 
+                        ? caseItem.incidentType.join(', ') 
+                        : caseItem.incidentType;
+
+                    row.innerHTML = `
+                        <td class="py-3 px-4 text-on-surface font-semibold">${caseItem.caseId || '-'}</td>
+                        <td class="py-3 px-4 text-on-surface">${capitalizeIncident(incidentTypes)}</td>
+                        <td class="py-3 px-4 text-on-surface">${reportedDate}</td>
+                        <td class="py-3 px-4">
+                            <span class="status-badge status-${caseItem.status}">
+                                ${capitalizeStatus(caseItem.status)}
+                            </span>
+                        </td>
+                        <td class="py-3 px-4 text-on-surface">${caseItem.priority || 'Normal'}</td>
+                        <td class="py-3 px-4">
+                            <button onclick="viewCaseDetails('${caseItem._id}')" class="text-primary font-semibold hover:underline">
+                                View Details
+                            </button>
+                        </td>
+                    `;
+
+                    tableBody.appendChild(row);
+                });
+
+                document.getElementById('casesTableContainer').classList.remove('hidden');
+
+            } catch (error) {
+                console.error('Error loading cases:', error);
+                document.getElementById('loadingSpinner').classList.add('hidden');
+                document.getElementById('noCasesMessage').classList.remove('hidden');
+                document.getElementById('noCasesMessage').innerHTML = `
+                    <span class="material-symbols-outlined text-4xl text-red-600 block mb-2">error</span>
+                    <p class="text-on-surface">Error loading cases. Please try again later.</p>
+                `;
+            }
+        }
+
+        function capitalizeStatus(status) {
+            const statusMap = {
+                'new': 'New',
+                'assigned': 'Assigned',
+                'in-progress': 'In Progress',
+                'escalated': 'Escalated',
+                'under-review': 'Under Review',
+                'resolved': 'Resolved',
+                'closed': 'Closed'
+            };
+            return statusMap[status] || status;
+        }
+
+        function capitalizeIncident(incident) {
+            return incident
+                .split('-')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+        }
+
+        function viewCaseDetails(caseId) {
+            // Store case ID in session storage for details page
+            sessionStorage.setItem('selectedCaseId', caseId);
+            window.location.href = `case-management.html?id=${caseId}`;
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

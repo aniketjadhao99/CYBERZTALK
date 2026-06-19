@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliance - Cyberztalk</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#006688",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#00c2ff",
+                        secondary: "#006b5f",
+                        surface: "#faf8ff",
+                        "on-surface": "#131b2e",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --primary: #006688;
+        }
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        .nav-item {
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-surface">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                        <span class="text-white font-bold">C</span>
+                    </div>
+                    <span class="text-xl font-bold text-primary">Cyberztalk</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="index.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Home</a>
+                    <a href="features.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Features</a>
+                    <a href="report-incident.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Report Incident</a>
+                    <a href="resources.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Resources</a>
+                    <a href="about-us.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">About Us</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a id="navLoginLink" href="login.html" class="text-primary text-sm font-medium hover:text-on-surface">Login</a>
+                    <a id="navGetStartedLink" href="get-started.html" class="bg-primary text-white px-6 py-2 rounded text-sm font-medium hover:bg-on-surface">Get Started</a>
+                    <span id="navAdminLinkContainer" class="hidden"></span>
+                    <span id="navLogoutLinkContainer" class="hidden"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-surface to-primary-container">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold text-on-surface mb-4">Compliance & Legal Framework</h1>
+            <p class="text-lg text-on-surface">Our commitment to legal compliance and cybersecurity standards</p>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto bg-white rounded-lg p-8 space-y-8">
+            
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">1. Indian Legal Framework</h2>
+                
+                <div class="space-y-6">
+                    <div class="border-l-4 border-primary pl-6 py-4">
+                        <h3 class="text-xl font-semibold text-on-surface mb-2">Information Technology Act, 2000</h3>
+                        <p class="text-on-surface mb-4">The primary legislation governing cyber crimes and electronic commerce in India. Cyberztalk operates in compliance with key sections:</p>
+                        
+                        <div class="bg-gray-50 p-4 rounded mb-4">
+                            <h4 class="font-semibold text-on-surface mb-2">Section 43 - Unauthorized Access:</h4>
+                            <p class="text-on-surface text-sm">Prohibits unauthorized access to computer systems. Users reporting such incidents can seek remedies through Cyberztalk's platform.</p>
+                        </div>
+
+                        <div class="bg-gray-50 p-4 rounded mb-4">
+                            <h4 class="font-semibold text-on-surface mb-2">Section 66 - Computer Crimes:</h4>
+                            <p class="text-on-surface text-sm">Addresses unauthorized access to protected systems, with punishment up to 3 years imprisonment and ₹5,00,000 fine. We facilitate reporting of such crimes.</p>
+                        </div>
+
+                        <div class="bg-gray-50 p-4 rounded mb-4">
+                            <h4 class="font-semibold text-on-surface mb-2">Section 67 - Obscene Materials:</h4>
+                            <p class="text-on-surface text-sm">Prohibits publication of obscene materials in electronic form. Punishment includes up to 3 years imprisonment and ₹10,00,000 fine for first offense, 5 years and ₹10,00,000 for repeat offense.</p>
+                        </div>
+
+                        <div class="bg-gray-50 p-4 rounded mb-4">
+                            <h4 class="font-semibold text-on-surface mb-2">Section 67A - Sexually Explicit Material:</h4>
+                            <p class="text-on-surface text-sm">Criminalizes publication, distribution, and transmission of material containing sexually explicit act. Punishment: 3 years imprisonment and ₹5,00,000 fine for first offense; 5 years and ₹10,00,000 for repeat offense.</p>
+                        </div>
+
+                        <div class="bg-gray-50 p-4 rounded">
+                            <h4 class="font-semibold text-on-surface mb-2">Section 67B - Child Sexual Abuse Material (CSAM):</h4>
+                            <p class="text-on-surface text-sm">Criminalizes possession, production, distribution, transmission, and browsing of child sexual exploitation material. Punishment: 5 years imprisonment and ₹10,00,000 fine for first offense; 7 years and ₹10,00,000 for repeat offense. We actively report such material to authorities.</p>
+                        </div>
+                    </div>
+
+                    <div class="border-l-4 border-orange-500 pl-6 py-4">
+                        <h3 class="text-xl font-semibold text-on-surface mb-2">Section 72 - Data Protection:</h3>
+                        <p class="text-on-surface">Mandates confidentiality of information obtained during electronic communications. We implement strict data protection protocols and restrict access to authorized personnel only.</p>
+                    </div>
+
+                    <div class="border-l-4 border-red-500 pl-6 py-4">
+                        <h3 class="text-xl font-semibold text-on-surface mb-2">Cybercrimes Prevention Act Amendments:</h3>
+                        <p class="text-on-surface">Recent amendments have strengthened penalties for:
+                        <ul class="list-disc list-inside text-on-surface mt-2 space-y-1">
+                            <li>Identity theft and impersonation online</li>
+                            <li>Phishing and financial fraud</li>
+                            <li>Data breach and ransomware attacks</li>
+                            <li>Online harassment and cyberbullying</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">2. CERT-IN Guidelines</h2>
+                <p class="text-on-surface mb-4">The Indian Computer Emergency Response Team (CERT-IN) provides guidelines for cybersecurity practices. We comply with:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2">
+                    <li>Incident Reporting: Mandatory 6-hour reporting timeline for critical security incidents</li>
+                    <li>Data Protection: Implementing confidentiality, integrity, and availability measures</li>
+                    <li>Vulnerability Management: Regular security assessments and patching</li>
+                    <li>Access Control: Multi-factor authentication and least privilege principles</li>
+                    <li>Audit Trails: Comprehensive logging of security events</li>
+                    <li>Incident Response: 24/7 monitoring and response capabilities</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">3. National Crime Records Bureau (NCRB) Standards</h2>
+                <p class="text-on-surface mb-4">Cyberztalk facilitates crime reporting in compliance with NCRB standards:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2">
+                    <li>Proper documentation of crime details</li>
+                    <li>Chain of custody for digital evidence</li>
+                    <li>Cooperation with law enforcement investigations</li>
+                    <li>Adherence to FIR registration procedures</li>
+                    <li>Maintenance of audit trails for legal proceedings</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">4. Data Protection & Privacy Standards</h2>
+                
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-on-surface mb-2">Personal Data Protection</h3>
+                        <p class="text-on-surface">We implement measures aligned with India's Digital Personal Data Protection Act (DPDPA) 2023:</p>
+                        <ul class="list-disc list-inside text-on-surface space-y-1 mt-2">
+                            <li>Consent-based data collection</li>
+                            <li>Purpose limitation in data usage</li>
+                            <li>Storage limitation to necessary period</li>
+                            <li>Security safeguards for data protection</li>
+                            <li>User rights to access and correction</li>
+                            <li>Grievance redressal mechanism</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-on-surface mb-2">GDPR Compliance (International)</h3>
+                        <p class="text-on-surface">For users from European Union, we comply with General Data Protection Regulation (GDPR):</p>
+                        <ul class="list-disc list-inside text-on-surface space-y-1 mt-2">
+                            <li>Right to be forgotten (data deletion)</li>
+                            <li>Data portability provisions</li>
+                            <li>Explicit consent management</li>
+                            <li>Privacy by design principles</li>
+                            <li>Data Protection Impact Assessment</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-semibold text-on-surface mb-2">CCPA Compliance (California)</h3>
+                        <p class="text-on-surface">For California users, we provide:</p>
+                        <ul class="list-disc list-inside text-on-surface space-y-1 mt-2">
+                            <li>Right to know what personal information is collected</li>
+                            <li>Right to delete collected information</li>
+                            <li>Right to opt-out of data sales</li>
+                            <li>Right to non-discrimination for exercising rights</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">5. Cybersecurity Standards</h2>
+                
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-on-surface mb-2">ISO/IEC 27001 - Information Security Management</h3>
+                    <p class="text-on-surface">We implement controls aligned with this international standard for information security:</p>
+                    <ul class="list-disc list-inside text-on-surface space-y-1 mt-2">
+                        <li>Information security policies and objectives</li>
+                        <li>Access control and user authentication</li>
+                        <li>Cryptography and encryption standards</li>
+                        <li>Incident management procedures</li>
+                        <li>Business continuity planning</li>
+                        <li>Regular security assessments</li>
+                    </ul>
+
+                    <h3 class="text-lg font-semibold text-on-surface mb-2 mt-4">NIST Cybersecurity Framework</h3>
+                    <p class="text-on-surface">We follow NIST guidelines for identifying, protecting, detecting, responding to, and recovering from cyber incidents.</p>
+
+                    <h3 class="text-lg font-semibold text-on-surface mb-2 mt-4">OWASP Security Guidelines</h3>
+                    <p class="text-on-surface">We implement web application security practices to prevent Top 10 vulnerabilities including injection attacks, authentication weaknesses, and sensitive data exposure.</p>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">6. Incident Reporting & Investigation</h2>
+                <p class="text-on-surface mb-4">Cyberztalk facilitates proper incident reporting and investigation:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2">
+                    <li><strong>Victim Support:</strong> Guidance through FIR registration process</li>
+                    <li><strong>Evidence Preservation:</strong> Maintaining digital evidence with integrity</li>
+                    <li><strong>Law Enforcement Cooperation:</strong> Direct reporting to relevant authorities</li>
+                    <li><strong>Documentation:</strong> Comprehensive incident documentation for investigations</li>
+                    <li><strong>Cybercrime Portal:</strong> Integration with National Cyber Crime Reporting Portal (www.cybercrime.gov.in)</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">7. Payment Gateway Compliance</h2>
+                <p class="text-on-surface mb-4">For premium services, we comply with:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2">
+                    <li><strong>PCI DSS:</strong> Payment Card Industry Data Security Standard for secure payment processing</li>
+                    <li><strong>RBI Guidelines:</strong> Reserve Bank of India regulations for payment systems</li>
+                    <li><strong>SSL/TLS Encryption:</strong> 256-bit encryption for payment data transmission</li>
+                    <li><strong>Tokenization:</strong> Secure token-based payment processing to minimize data exposure</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">8. Accessibility Compliance</h2>
+                <p class="text-on-surface">We strive to comply with:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2">
+                    <li>Web Content Accessibility Guidelines (WCAG) 2.1 AA standards</li>
+                    <li>Americans with Disabilities Act (ADA) requirements</li>
+                    <li>Screen reader compatibility</li>
+                    <li>Keyboard navigation support</li>
+                    <li>High contrast mode support</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">9. Grievance Redressal & Compliance</h2>
+                <p class="text-on-surface mb-4">For compliance-related issues or grievances:</p>
+                <p class="text-on-surface mb-2"><strong>Email:</strong> compliance@cyberztalk.com</p>
+                <p class="text-on-surface mb-2"><strong>Phone:</strong> +91-[Contact Number]</p>
+                <p class="text-on-surface">Response timeframe: 15 working days for acknowledgment, 60 days for resolution</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">10. Regular Audits & Assessment</h2>
+                <p class="text-on-surface">Cyberztalk undergoes:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2">
+                    <li>Internal security audits (quarterly)</li>
+                    <li>Third-party penetration testing (bi-annually)</li>
+                    <li>Compliance audits (annually)</li>
+                    <li>CERT-IN vulnerability assessments</li>
+                    <li>DPA impact assessments</li>
+                </ul>
+            </div>
+
+            <div class="bg-primary-container p-6 rounded-lg">
+                <p class="text-on-surface"><strong>Disclaimer:</strong> While we strive to maintain full compliance with all applicable laws and regulations, cybersecurity is an evolving field. We continuously update our practices to align with new legal requirements and industry standards. Users are encouraged to report any compliance concerns to our compliance team.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-on-surface text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                            <span class="text-white font-bold">C</span>
+                        </div>
+                        <span class="text-xl font-bold">Cyberztalk</span>
+                    </div>
+                    <p class="text-sm text-gray-300">Intelligent cybersecurity assistance, empowering you to navigate the digital world safely.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider">LEGAL</h3>
+                    <ul class="space-y-2">
+                        <li><a href="privacy-policy.html" class="text-sm text-gray-300 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html" class="text-sm text-gray-300 hover:text-white">Terms of Service</a></li>
+                        <li><a href="cookie-policy.html" class="text-sm text-gray-300 hover:text-white">Cookie Policy</a></li>
+                        <li><a href="compliance.html" class="text-sm text-gray-300 hover:text-white">Compliance</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider">CONNECT</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">LinkedIn</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">X (Twitter)</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Instagram</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-sm text-gray-400">© 2024 Cyberztalk Intelligence. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script src="js/authNav.js"></script>
+</body>
+</html>

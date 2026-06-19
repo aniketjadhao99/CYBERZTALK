@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report an Incident - Cyberztalk</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#006688",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#00c2ff",
+                        secondary: "#006b5f",
+                        surface: "#faf8ff",
+                        "on-surface": "#131b2e",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --primary: #006688;
+        }
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        .nav-item {
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .step-item.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        .step-item.completed {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .step-item.active .step-number {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-surface">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                        <span class="text-white font-bold">C</span>
+                    </div>
+                    <span class="text-xl font-bold text-primary">Cyberztalk</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="index.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Home</a>
+                    <a href="features.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Features</a>
+                    <a href="report-incident.html" class="nav-item active text-on-surface text-sm font-medium hover:text-primary">Report Incident</a>
+                    <a href="resources.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Resources</a>
+                    <a href="about-us.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">About Us</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a id="navLoginLink" href="login.html" class="text-primary text-sm font-medium">Login</a>
+                    <a id="navGetStartedLink" href="get-started.html" class="bg-primary text-white px-6 py-2 rounded text-sm font-medium hover:bg-on-surface">Get Started</a>
+                    <span id="navAdminLinkContainer" class="hidden"></span>
+                    <span id="navLogoutLinkContainer" class="hidden"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="mb-8">
+            <h1 class="text-4xl font-bold text-on-surface mb-2">Report an Incident</h1>
+            <p class="text-on-surface">Provide the details below to help our AI analyze and escalate your case securely. Your information is protected.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Progress Sidebar -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-lg p-6 sticky top-20">
+                    <h3 class="text-sm font-semibold text-on-surface uppercase tracking-wider mb-6">FILING PROGRESS</h3>
+                    <div class="space-y-2">
+                        <div class="step-item active" data-step="1">
+                            <div class="step-number">✓</div>
+                            <span class="text-sm font-medium">Victim Info</span>
+                        </div>
+                        <div class="step-item" data-step="2">
+                            <div class="step-number">2</div>
+                            <span class="text-sm font-medium">Category</span>
+                        </div>
+                        <div class="step-item" data-step="3">
+                            <div class="step-number">3</div>
+                            <span class="text-sm font-medium">Platform</span>
+                        </div>
+                        <div class="step-item" data-step="4">
+                            <div class="step-number">4</div>
+                            <span class="text-sm font-medium">Suspect Info</span>
+                        </div>
+                        <div class="step-item" data-step="5">
+                            <div class="step-number">5</div>
+                            <span class="text-sm font-medium">Review</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Form Content -->
+            <div class="lg:col-span-3">
+                <div class="bg-white rounded-lg p-8">
+                    <form id="incidentForm" class="space-y-8">
+                        <!-- Step 1: Victim Information -->
+                        <div class="step-content" id="step-1">
+                            <div class="border-b-2 border-primary pb-4 mb-8">
+                                <h2 class="text-2xl font-bold text-on-surface">Step 1: Victim Information</h2>
+                                <p class="text-on-surface text-sm mt-2">Please provide accurate details to help us contact you regarding updates.</p>
+                            </div>
+
+                            <div class="space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-semibold text-on-surface mb-2">Full Name <span class="text-red-500">*</span></label>
+                                        <input type="text" name="fullName" placeholder="John Doe" class="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-semibold text-on-surface mb-2">Email Address <span class="text-red-500">*</span></label>
+                                        <input type="email" name="email" placeholder="john@example.com" class="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-semibold text-on-surface mb-2">Mobile Number <span class="text-red-500">*</span></label>
+                                        <input type="tel" name="phone" placeholder="(555) 000-0000" class="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-semibold text-on-surface mb-2">Alternate Contact</label>
+                                        <input type="tel" name="alternatePhone" placeholder="(555) 111-1111" class="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-semibold text-on-surface mb-2">Age Group</label>
+                                        <select name="ageGroup" class="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-primary focus:border-transparent">
+                                            <option>Select age group</option>
+                                            <option>13-17</option>
+                                            <option>18-24</option>
+                                            <option>25-34</option>
+                                            <option>35-44</option>
+                                            <option>45-54</option>
+                                            <option>55-64</option>
+                                            <option>65+</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-semibold text-on-surface mb-2">City</label>
+                                        <input type="text" name="city" placeholder="Enter city" class="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-semibold text-on-surface mb-2">State / Province / Region</label>
+                                    <input type="text" name="state" placeholder="State/Region" class="w-full px-4 py-3 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-primary focus:border-transparent">
+                                </div>
+
+                                <div class="flex justify-end gap-4 mt-8">
+                                    <button type="button" class="px-6 py-3 border border-primary text-primary rounded font-medium hover:bg-primary-container transition-colors" onclick="location.href='index.html'">Back</button>
+                                    <button type="button" class="px-6 py-3 bg-primary text-white rounded font-medium hover:bg-on-surface transition-colors" onclick="nextStep(2)">Continue to Category →</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Category -->
+                        <div class="step-content hidden" id="step-2">
+                            <div class="border-b-2 border-primary pb-4 mb-8">
+                                <h2 class="text-2xl font-bold text-on-surface">Step 2: Incident Category</h2>
+                                <p class="text-on-surface text-sm mt-2">Select the category that best describes your incident.</p>
+                            </div>
+
+                            <div class="space-y-3">
+                                <label class="flex items-center gap-3 p-4 border border-gray-300 rounded cursor-pointer hover:bg-primary-container">
+                                    <input type="checkbox" name="incidentType" value="phishing" class="w-5 h-5" required>
+                                    <span class="font-medium">Phishing</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-4 border border-gray-300 rounded cursor-pointer hover:bg-primary-container">
+                                    <input type="checkbox" name="incidentType" value="identity-theft" class="w-5 h-5" required>
+                                    <span class="font-medium">Identity Theft</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-4 border border-gray-300 rounded cursor-pointer hover:bg-primary-container">
+                                    <input type="checkbox" name="incidentType" value="financial-fraud" class="w-5 h-5" required>
+                                    <span class="font-medium">Financial Fraud</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-4 border border-gray-300 rounded cursor-pointer hover:bg-primary-container">
+                                    <input type="checkbox" name="incidentType" value="malware" class="w-5 h-5" required>
+                                    <span class="font-medium">Malware</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-4 border border-gray-300 rounded cursor-pointer hover:bg-primary-container">
+                                    <input type="checkbox" name="incidentType" value="other" class="w-5 h-5" required>
+                                    <span class="font-medium">Other</span>
+                                </label>
+                            </div>
+
+                            <div class="flex justify-end gap-4 mt-8">
+                                <button type="button" class="px-6 py-3 border border-primary text-primary rounded font-medium hover:bg-primary-container" onclick="nextStep(1)">Back</button>
+                                <button type="button" class="px-6 py-3 bg-primary text-white rounded font-medium hover:bg-on-surface" onclick="nextStep(3)">Continue →</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Platform -->
+                        <div class="step-content hidden" id="step-3">
+                            <div class="border-b-2 border-primary pb-4 mb-8">
+                                <h2 class="text-2xl font-bold text-on-surface">Step 3: Platform</h2>
+                                <p class="text-on-surface text-sm mt-2">Which platform was involved in the incident?</p>
+                            </div>
+
+                            <div class="space-y-3">
+                                <label class="flex items-center gap-3 p-4 border border-gray-300 rounded cursor-pointer hover:bg-primary-container">
+                                    <input type="checkbox" name="platform" value="email" class="w-5 h-5">
+                                    <span class="font-medium">Email</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-4 border border-gray-300 rounded cursor-pointer hover:bg-primary-container">
+                                    <input type="checkbox" name="platform" value="facebook" class="w-5 h-5">
+                                    <span class="font-medium">Facebook</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-4 border border-gray-300 rounded cursor-pointer hover:bg-primary-container">
+                                    <input type="checkbox" name="platform" value="instagram" class="w-5 h-5">
+                                    <span class="font-medium">Instagram</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-4 border border-gray-300 rounded cursor-pointer hover:bg-primary-container">
+                                    <input type="checkbox" name="platform" value="website" class="w-5 h-5">
+                                    <span class="font-medium">Website / URL</span>
+                                </label>
+                                <label class="flex items-center gap-3 p-4 border border-gray-300 rounded cursor-pointer hover:bg-primary-container">
+                                    <input type="checkbox" name="platform" value="other" class="w-5 h-5">
+                                    <span class="font-medium">Other</span>
+                                </label>
+                                <p class="text-sm text-gray-600 mt-2">Select one or more platforms involved in the incident</p>
+                            </div>
+
+                            <div class="flex justify-end gap-4 mt-8">
+                                <button type="button" class="px-6 py-3 border border-primary text-primary rounded font-medium hover:bg-primary-container" onclick="nextStep(2)">Back</button>
+                                <button type="button" class="px-6 py-3 bg-primary text-white rounded font-medium hover:bg-on-surface" onclick="nextStep(4)">Continue →</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Suspect Info -->
+                        <div class="step-content hidden" id="step-4">
+                            <div class="border-b-2 border-primary pb-4 mb-8">
+                                <h2 class="text-2xl font-bold text-on-surface">Step 4: Suspect Information</h2>
+                                <p class="text-on-surface text-sm mt-2">Provide any information about the suspect if known.</p>
+                            </div>
+
+                            <div class="space-y-3">
+                                <p class="text-sm text-on-surface mb-2">Select any known suspect details or evidence you have.</p>
+
+                                <!-- Suspect Email -->
+                                <label class="flex items-center gap-3 p-4 border border-gray-300 rounded cursor-pointer hover:bg-primary-container">
+                                    <input type="checkbox" name="suspectOption" value="email-known" class="w-5 h-5 suspect-checkbox" onchange="toggleSuspectField(this)">
+                                    <span class="font-medium">Suspect email known</span>
+                                </label>
+                                <div id="field-email-known" class="hidden pl-12 pb-3">
+                                    <input type="email" name="suspectEmail" placeholder="Enter suspect email" class="w-full px-4 py-2 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-primary focus:border-transparent">
+                                </div>
+
+                                <!-- Suspect Name -->
+                                <label class="flex items-center gap-3 p-4 border border-gray-300 rounded cursor-pointer hover:bg-primary-container">
+                                    <input type="checkbox" name="suspectOption" value="name-known" class="w-5 h-5 suspect-checkbox" onchange="toggleSuspectField(this)">
+                                    <span class="font-medium">Suspect name known</span>
+                                </label>
+                                <div id="field-name-known" class="hidden pl-12 pb-3">
+                                    <input type="text" name="suspectName" placeholder="Enter suspect name" class="w-full px-4 py-2 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-primary focus:border-transparent">
+                                </div>
+
+                                <!-- Account/Profile URL -->
+                                <label class="flex items-center gap-3 p-4 border border-gray-300 rounded cursor-pointer hover:bg-primary-container">
+                                    <input type="checkbox" name="suspectOption" value="account-url" class="w-5 h-5 suspect-checkbox" onchange="toggleSuspectField(this)">
+                                    <span class="font-medium">Account/profile URL</span>
+                                </label>
+                                <div id="field-account-url" class="hidden pl-12 pb-3">
+                                    <input type="url" name="suspectUrl" placeholder="https://example.com/profile" class="w-full px-4 py-2 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-primary focus:border-transparent">
+                                </div>
+
+                                <!-- Evidence Upload -->
+                                <label class="flex items-center gap-3 p-4 border border-gray-300 rounded cursor-pointer hover:bg-primary-container">
+                                    <input type="checkbox" name="suspectOption" value="evidence-attached" class="w-5 h-5 suspect-checkbox" onchange="toggleSuspectField(this)">
+                                    <span class="font-medium">I have attachments or evidence to upload</span>
+                                </label>
+                                <div id="field-evidence-attached" class="hidden pl-12 pb-3">
+                                    <input type="file" name="evidenceFile" multiple class="w-full px-4 py-2 border border-gray-300 rounded bg-white">
+                                    <p class="text-xs text-gray-500 mt-1">You can upload screenshots, emails, or other evidence</p>
+                                </div>
+
+                                <!-- Other -->
+                                <label class="flex items-center gap-3 p-4 border border-gray-300 rounded cursor-pointer hover:bg-primary-container">
+                                    <input type="checkbox" name="suspectOption" value="other" class="w-5 h-5 suspect-checkbox" onchange="toggleSuspectField(this)">
+                                    <span class="font-medium">Other</span>
+                                </label>
+                                <div id="field-other" class="hidden pl-12 pb-3">
+                                    <textarea name="suspectOther" placeholder="Describe other suspect details" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded bg-white focus:ring-2 focus:ring-primary focus:border-transparent"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-end gap-4 mt-8">
+                                <button type="button" class="px-6 py-3 border border-primary text-primary rounded font-medium hover:bg-primary-container" onclick="nextStep(3)">Back</button>
+                                <button type="button" class="px-6 py-3 bg-primary text-white rounded font-medium hover:bg-on-surface" onclick="nextStep(5)">Continue →</button>
+                            </div>
+                        </div>
+
+                        <!-- Step 5: Review & Submit -->
+                        <div class="step-content hidden" id="step-5">
+                            <div class="border-b-2 border-primary pb-4 mb-8">
+                                <h2 class="text-2xl font-bold text-on-surface">Step 5: Review & Submit</h2>
+                                <p class="text-on-surface text-sm mt-2">Please review your information before submitting.</p>
+                            </div>
+
+                            <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 mb-8">
+                                <h3 class="font-semibold text-on-surface mb-4">Your Report Summary</h3>
+                                <div id="reviewSummary" class="space-y-2 text-sm text-on-surface">
+                                    <!-- Summary will be populated by JavaScript -->
+                                </div>
+                            </div>
+
+                            <label class="flex items-start gap-3 cursor-pointer mb-6">
+                                <input type="checkbox" id="agreeTerms" class="w-5 h-5 mt-1" required>
+                                <span class="text-sm text-on-surface">I confirm that the information provided is accurate and understand that false reports may result in legal action.</span>
+                            </label>
+
+                            <div class="flex justify-end gap-4 mt-8">
+                                <button type="button" class="px-6 py-3 border border-primary text-primary rounded font-medium hover:bg-primary-container" onclick="nextStep(4)">Back</button>
+                                <button type="submit" class="px-6 py-3 bg-primary text-white rounded font-medium hover:bg-on-surface transition-colors" onclick="submitForm(event)">Submit Report</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-on-surface text-white py-16 px-4 sm:px-6 lg:px-8 mt-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                            <span class="text-white font-bold">C</span>
+                        </div>
+                        <span class="text-xl font-bold">Cyberztalk</span>
+                    </div>
+                    <p class="text-sm text-gray-300">© 2024 Cyberztalk Intelligence. All rights reserved.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider">LEGAL</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Cookie Policy</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Compliance</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider">SUPPORT</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Terms</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Support</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentStep = 1;
+
+        function nextStep(stepNum) {
+            // Validate current step before moving
+            if (stepNum > currentStep) {
+                if (!validateStep(currentStep)) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+            }
+
+            document.querySelectorAll('.step-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`step-${stepNum}`).classList.remove('hidden');
+            
+            document.querySelectorAll('.step-item').forEach(el => {
+                el.classList.remove('active');
+                if (parseInt(el.dataset.step) < stepNum) {
+                    el.classList.add('completed');
+                }
+            });
+            document.querySelector(`[data-step="${stepNum}"]`).classList.add('active');
+            
+            currentStep = stepNum;
+            updateReviewSummary();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function validateStep(stepNum) {
+            const form = document.getElementById('incidentForm');
+            const requiredElements = form.querySelectorAll(`#step-${stepNum} [required]`);
+
+            // Check each required field or group only once
+            const checkedNames = new Set();
+
+            for (let el of requiredElements) {
+                const tag = el.tagName.toLowerCase();
+                const type = el.type;
+                const name = el.name || null;
+
+                if (name && checkedNames.has(name)) continue;
+
+                if (type === 'radio') {
+                    const group = form.querySelectorAll(`input[name="${name}"]:checked`);
+                    if (group.length === 0) return false;
+                    checkedNames.add(name);
+                } else if (type === 'checkbox') {
+                    const group = form.querySelectorAll(`input[name="${name}"]:checked`);
+                    if (group.length === 0) return false;
+                    checkedNames.add(name);
+                } else if (tag === 'select' || tag === 'input' || tag === 'textarea') {
+                    if (!el.value || !el.value.toString().trim()) return false;
+                }
+            }
+
+            return true;
+        }
+
+        function toggleSuspectField(checkbox) {
+            const fieldId = `field-${checkbox.value}`;
+            const fieldDiv = document.getElementById(fieldId);
+            if (checkbox.checked) {
+                fieldDiv.classList.remove('hidden');
+            } else {
+                fieldDiv.classList.add('hidden');
+            }
+        }
+
+        function updateReviewSummary() {
+            const form = document.getElementById('incidentForm');
+            const summary = document.getElementById('reviewSummary');
+
+            const fullName = form.querySelector('input[name="fullName"]').value || '';
+            const email = form.querySelector('input[name="email"]').value || '';
+            const phone = form.querySelector('input[name="phone"]').value || '';
+
+            const incidentTypes = Array.from(form.querySelectorAll('input[name="incidentType"]:checked')).map(i => i.value);
+            const platforms = Array.from(form.querySelectorAll('input[name="platform"]:checked')).map(i => i.value);
+            const suspectOptions = Array.from(form.querySelectorAll('input[name="suspectOption"]:checked')).map(i => i.value);
+
+            let suspectDetails = [];
+            if (form.querySelector('input[name="suspectEmail"]')?.value) {
+                suspectDetails.push(`Email: ${form.querySelector('input[name="suspectEmail"]').value}`);
+            }
+            if (form.querySelector('input[name="suspectName"]')?.value) {
+                suspectDetails.push(`Name: ${form.querySelector('input[name="suspectName"]').value}`);
+            }
+            if (form.querySelector('input[name="suspectUrl"]')?.value) {
+                suspectDetails.push(`URL: ${form.querySelector('input[name="suspectUrl"]').value}`);
+            }
+            if (form.querySelector('input[name="evidenceFile"]')?.files?.length > 0) {
+                suspectDetails.push(`Evidence: ${form.querySelector('input[name="evidenceFile"]').files.length} file(s)`);
+            }
+            if (form.querySelector('textarea[name="suspectOther"]')?.value) {
+                suspectDetails.push(`Other: ${form.querySelector('textarea[name="suspectOther"]').value}`);
+            }
+
+            let html = `
+                <div><strong>Name:</strong> ${fullName}</div>
+                <div><strong>Email:</strong> ${email}</div>
+                <div><strong>Phone:</strong> ${phone}</div>
+                <div><strong>Incident Type:</strong> ${incidentTypes.length ? incidentTypes.join(', ') : 'Not selected'}</div>
+                <div><strong>Platform(s):</strong> ${platforms.length ? platforms.join(', ') : 'Not specified'}</div>
+                <div><strong>Suspect Options:</strong> ${suspectOptions.length ? suspectOptions.join(', ') : 'None selected'}</div>
+                ${suspectDetails.length ? `<div><strong>Suspect Details:</strong> ${suspectDetails.join(' | ')}</div>` : ''}
+            `;
+
+            summary.innerHTML = html;
+        }
+
+        async function submitForm(event) {
+            event.preventDefault();
+
+            if (!document.getElementById('agreeTerms').checked) {
+                alert('Please agree to the terms before submitting');
+                return;
+            }
+
+            const form = document.getElementById('incidentForm');
+            const formData = new FormData(form);
+
+            const incidentTypes = formData.getAll('incidentType');
+            const platforms = formData.getAll('platform');
+            const suspectOptions = formData.getAll('suspectOption');
+
+            const generatedDescription = `Incident Types: ${incidentTypes.join(', ') || 'N/A'}; Platforms: ${platforms.join(', ') || 'N/A'}; Suspect details: ${suspectOptions.join(', ') || 'None'}`;
+
+            const caseData = {
+                victimInfo: {
+                    fullName: formData.get('fullName'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone') || null,
+                    alternateContact: formData.get('alternatePhone') || null,
+                    ageGroup: formData.get('ageGroup') || null,
+                    city: formData.get('city') || null,
+                    state: formData.get('state') || null
+                },
+                incidentType: incidentTypes,
+                description: generatedDescription,
+                platform: platforms,
+                suspectInfo: {
+                    options: suspectOptions,
+                    email: formData.get('suspectEmail') || null,
+                    name: formData.get('suspectName') || null,
+                    url: formData.get('suspectUrl') || null,
+                    other: formData.get('suspectOther') || null
+                }
+            };
+
+            try {
+                const response = await fetch('http://localhost:5000/api/cases/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                    },
+                    body: JSON.stringify(caseData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    alert(`Case created successfully!\nCase ID: ${result.data.caseId}`);
+                    form.reset();
+                    nextStep(1);
+                } else {
+                    alert(`Error: ${result.message}`);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while submitting the form. Make sure you are logged in.');
+            }
+        }
+
+        // Step item click handler
+        document.querySelectorAll('.step-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const step = parseInt(this.dataset.step);
+                if (step <= currentStep) {
+                    nextStep(step);
+                }
+            });
+        });
+    </script>
+    <script src="js/authNav.js"></script>
+</body>
+</html>

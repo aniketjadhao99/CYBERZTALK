@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Policy - Cyberztalk</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#006688",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#00c2ff",
+                        secondary: "#006b5f",
+                        surface: "#faf8ff",
+                        "on-surface": "#131b2e",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --primary: #006688;
+        }
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        .nav-item {
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-surface">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                        <span class="text-white font-bold">C</span>
+                    </div>
+                    <span class="text-xl font-bold text-primary">Cyberztalk</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="index.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Home</a>
+                    <a href="features.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Features</a>
+                    <a href="report-incident.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Report Incident</a>
+                    <a href="resources.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Resources</a>
+                    <a href="about-us.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">About Us</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a id="navLoginLink" href="login.html" class="text-primary text-sm font-medium hover:text-on-surface">Login</a>
+                    <a id="navGetStartedLink" href="get-started.html" class="bg-primary text-white px-6 py-2 rounded text-sm font-medium hover:bg-on-surface">Get Started</a>
+                    <span id="navAdminLinkContainer" class="hidden"></span>
+                    <span id="navLogoutLinkContainer" class="hidden"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-surface to-primary-container">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold text-on-surface mb-4">Cookie Policy</h1>
+            <p class="text-lg text-on-surface">Last Updated: January 2024</p>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto bg-white rounded-lg p-8 space-y-8">
+            
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">1. What Are Cookies?</h2>
+                <p class="text-on-surface">Cookies are small text files that are stored on your device when you visit our website. They serve multiple purposes including remembering your preferences, tracking your usage patterns, and enhancing your browsing experience. Cookies may be persistent (stored until deleted) or temporary (session cookies that expire when you close your browser).</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">2. Types of Cookies We Use</h2>
+                
+                <div class="space-y-4">
+                    <div class="border-l-4 border-primary pl-4">
+                        <h3 class="text-lg font-semibold text-on-surface mb-2">Essential/Strictly Necessary Cookies</h3>
+                        <p class="text-on-surface">These cookies are essential for the website to function properly. They enable core functionality such as:</p>
+                        <ul class="list-disc list-inside text-on-surface space-y-1 mt-2">
+                            <li>User authentication and session management</li>
+                            <li>Security features and fraud detection</li>
+                            <li>Storing your login information</li>
+                            <li>Maintaining your shopping cart</li>
+                            <li>Enabling form submissions</li>
+                        </ul>
+                        <p class="text-on-surface mt-2"><strong>Status:</strong> Cannot be disabled; required for site functionality</p>
+                    </div>
+
+                    <div class="border-l-4 border-orange-500 pl-4">
+                        <h3 class="text-lg font-semibold text-on-surface mb-2">Analytics Cookies</h3>
+                        <p class="text-on-surface">These cookies help us understand how users interact with our website:</p>
+                        <ul class="list-disc list-inside text-on-surface space-y-1 mt-2">
+                            <li>Tracking page views and navigation patterns</li>
+                            <li>Identifying popular content and features</li>
+                            <li>Measuring website performance</li>
+                            <li>Identifying technical issues</li>
+                            <li>Analyzing user demographics and behavior</li>
+                        </ul>
+                        <p class="text-on-surface mt-2"><strong>Status:</strong> Optional; can be disabled through cookie settings</p>
+                    </div>
+
+                    <div class="border-l-4 border-green-500 pl-4">
+                        <h3 class="text-lg font-semibold text-on-surface mb-2">Preference Cookies</h3>
+                        <p class="text-on-surface">These cookies remember your choices to personalize your experience:</p>
+                        <ul class="list-disc list-inside text-on-surface space-y-1 mt-2">
+                            <li>Language preferences</li>
+                            <li>Theme selection (light/dark mode)</li>
+                            <li>Accessibility preferences</li>
+                            <li>Volume settings for media</li>
+                            <li>Previously visited pages</li>
+                        </ul>
+                        <p class="text-on-surface mt-2"><strong>Status:</strong> Optional; can be disabled</p>
+                    </div>
+
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h3 class="text-lg font-semibold text-on-surface mb-2">Marketing Cookies</h3>
+                        <p class="text-on-surface">These cookies are used to deliver targeted advertising and marketing messages:</p>
+                        <ul class="list-disc list-inside text-on-surface space-y-1 mt-2">
+                            <li>Tracking your interests across websites</li>
+                            <li>Displaying relevant advertisements</li>
+                            <li>Measuring marketing campaign effectiveness</li>
+                            <li>Creating targeted audiences</li>
+                            <li>Retargeting ads based on browsing history</li>
+                        </ul>
+                        <p class="text-on-surface mt-2"><strong>Status:</strong> Optional; requires explicit consent</p>
+                    </div>
+
+                    <div class="border-l-4 border-purple-500 pl-4">
+                        <h3 class="text-lg font-semibold text-on-surface mb-2">Third-Party Cookies</h3>
+                        <p class="text-on-surface">Cookies set by third parties such as:</p>
+                        <ul class="list-disc list-inside text-on-surface space-y-1 mt-2">
+                            <li>Analytics providers (Google Analytics)</li>
+                            <li>Payment processors</li>
+                            <li>Social media platforms</li>
+                            <li>Advertising networks</li>
+                            <li>Customer support tools</li>
+                        </ul>
+                        <p class="text-on-surface mt-2"><strong>Status:</strong> Subject to third-party privacy policies</p>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">3. Similar Tracking Technologies</h2>
+                <p class="text-on-surface mb-4">Beyond cookies, we may use other tracking technologies:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2">
+                    <li><strong>Web Beacons/Pixels:</strong> Transparent images used to track page views and user interactions</li>
+                    <li><strong>Local Storage:</strong> Browser storage similar to cookies for storing user preferences</li>
+                    <li><strong>Device Identifiers:</strong> Unique identifiers for tracking mobile app users</li>
+                    <li><strong>Server Logs:</strong> Recording IP addresses and user activity</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">4. How to Control Cookies</h2>
+                
+                <h3 class="text-lg font-semibold text-on-surface mb-2">Browser Settings</h3>
+                <p class="text-on-surface mb-4">You can control cookies through your browser settings:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2 mb-4">
+                    <li><strong>Chrome:</strong> Settings → Privacy and security → Cookies and other site data</li>
+                    <li><strong>Firefox:</strong> Settings → Privacy & Security → Cookies and Site Data</li>
+                    <li><strong>Safari:</strong> Preferences → Privacy → Cookies and website data</li>
+                    <li><strong>Edge:</strong> Settings → Privacy, search, and services → Cookies and other site data</li>
+                </ul>
+
+                <h3 class="text-lg font-semibold text-on-surface mb-2">Cookie Consent Banner</h3>
+                <p class="text-on-surface mb-4">Upon visiting our website, you may see a cookie consent banner. You can:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2">
+                    <li>Accept all cookies</li>
+                    <li>Accept only essential cookies</li>
+                    <li>Customize your cookie preferences</li>
+                    <li>Manage preferences at any time</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">5. Opt-Out Options</h2>
+                <p class="text-on-surface mb-4">To opt out of specific tracking:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2">
+                    <li><strong>Google Analytics:</strong> Install Google Analytics Opt-out Browser Add-on</li>
+                    <li><strong>Advertising:</strong> Visit Digital Advertising Alliance (DAA) or Network Advertising Initiative (NAI)</li>
+                    <li><strong>Email Marketing:</strong> Click "Unsubscribe" in marketing emails</li>
+                    <li><strong>Do Not Track:</strong> Enable "Do Not Track" in your browser settings</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">6. Impact of Disabling Cookies</h2>
+                <p class="text-on-surface mb-4">Disabling cookies may affect your experience:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2">
+                    <li>You may not be able to log in to your account</li>
+                    <li>Your preferences may not be saved</li>
+                    <li>Site functionality may be impaired</li>
+                    <li>You may need to re-enter information repeatedly</li>
+                    <li>Some features may not work properly</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">7. Data Retention</h2>
+                <p class="text-on-surface">We retain cookie data in accordance with our Privacy Policy. Cookie lifespan varies:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2 mt-2">
+                    <li>Session cookies are deleted when you close your browser</li>
+                    <li>Persistent cookies are stored until their expiration date</li>
+                    <li>You can manually delete cookies from your browser</li>
+                    <li>We regularly review and clean up expired cookie data</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">8. Compliance with Privacy Laws</h2>
+                <p class="text-on-surface">We comply with global privacy regulations:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2 mt-2">
+                    <li><strong>GDPR (Europe):</strong> Obtaining explicit consent for non-essential cookies</li>
+                    <li><strong>CCPA (California):</strong> Providing cookie disclosure and opt-out rights</li>
+                    <li><strong>India:</strong> Following IT Act guidelines on user data and tracking</li>
+                    <li><strong>ePrivacy Directive:</strong> Complying with European cookie regulations</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">9. Third-Party Links</h2>
+                <p class="text-on-surface">Links to external websites may use their own cookies. We are not responsible for third-party cookie practices. Please review their privacy and cookie policies for their specific practices.</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">10. Updates to This Policy</h2>
+                <p class="text-on-surface">We may update this Cookie Policy periodically. Changes will be reflected on this page with an updated "Last Updated" date. Your continued use of our website constitutes acceptance of the updated policy.</p>
+            </div>
+
+            <div class="bg-primary-container p-6 rounded-lg">
+                <p class="text-on-surface"><strong>Contact Us:</strong> If you have questions about our cookie practices, contact us at privacy@cyberztalk.com</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-on-surface text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                            <span class="text-white font-bold">C</span>
+                        </div>
+                        <span class="text-xl font-bold">Cyberztalk</span>
+                    </div>
+                    <p class="text-sm text-gray-300">Intelligent cybersecurity assistance, empowering you to navigate the digital world safely.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider">LEGAL</h3>
+                    <ul class="space-y-2">
+                        <li><a href="privacy-policy.html" class="text-sm text-gray-300 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html" class="text-sm text-gray-300 hover:text-white">Terms of Service</a></li>
+                        <li><a href="cookie-policy.html" class="text-sm text-gray-300 hover:text-white">Cookie Policy</a></li>
+                        <li><a href="compliance.html" class="text-sm text-gray-300 hover:text-white">Compliance</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider">CONNECT</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">LinkedIn</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">X (Twitter)</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Instagram</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-sm text-gray-400">© 2024 Cyberztalk Intelligence. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script src="js/authNav.js"></script>
+</body>
+</html>

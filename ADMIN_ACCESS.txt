@@ -1,0 +1,22 @@
+# 🚀 ADMIN CREDENTIALS - QUICK ACCESS
+
+**Admin Email:** `elena.vasquez@cyberztalk.com`
+**Admin Password:** `SecurePassword123!`
+
+## Login Steps
+1. Go to: `http://localhost:3000/login.html`
+2. Email: `elena.vasquez@cyberztalk.com`
+3. Password: `SecurePassword123!`
+4. Click Sign In
+5. ✅ Auto-redirects to: `http://localhost:3000/admin-dashboard.html`
+
+## ✅ Status
+- Admin account: **ACTIVE** ✅
+- Database: **CONNECTED** ✅  
+- Authentication: **WORKING** ✅
+- Redirect logic: **ACTIVE** ✅
+
+## More Info
+- Full guide: [ADMIN_AUTHENTICATION.md](ADMIN_AUTHENTICATION.md)
+- Login reference: [ADMIN_LOGIN_QUICK_REFERENCE.md](ADMIN_LOGIN_QUICK_REFERENCE.md)
+- Credentials detail: [ADMIN_CREDENTIALS.md](ADMIN_CREDENTIALS.md)

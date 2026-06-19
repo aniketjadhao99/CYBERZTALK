@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - Cyberztalk</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#006688",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#00c2ff",
+                        secondary: "#006b5f",
+                        surface: "#faf8ff",
+                        "on-surface": "#131b2e",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --primary: #006688;
+        }
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        .nav-item {
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .tab-button.active {
+            background-color: var(--primary);
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-surface">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                        <span class="text-white font-bold">C</span>
+                    </div>
+                    <span class="text-xl font-bold text-primary">Cyberztalk</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="index.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Home</a>
+                    <a href="features.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Features</a>
+                    <a href="report-incident.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Report Incident</a>
+                    <a href="resources.html" class="nav-item active text-on-surface text-sm font-medium hover:text-primary">Resources</a>
+                    <a href="about-us.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">About Us</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a id="navLoginLink" href="login.html" class="text-primary text-sm font-medium hover:text-on-surface">Login</a>
+                    <a id="navGetStartedLink" href="get-started.html" class="bg-primary text-white px-6 py-2 rounded text-sm font-medium hover:bg-on-surface">Get Started</a>
+                    <span id="navAdminLinkContainer" class="hidden"></span>
+                    <span id="navLogoutLinkContainer" class="hidden"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-surface to-primary-container">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-on-surface mb-4">Cyber Awareness & <span class="text-primary">Digital Hygiene</span></h1>
+            <p class="text-lg text-on-surface max-w-2xl mx-auto">Learn essential cybersecurity practices for you and your loved ones. Protect yourself, your family, and your organization from digital threats.</p>
+        </div>
+    </section>
+
+    <!-- Tabs Section -->
+    <section class="py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-wrap gap-4 mb-12">
+                <button class="tab-button active bg-primary text-white px-6 py-3 rounded-lg font-semibold transition" onclick="showTab('parents')">👨‍👩‍👧‍👦 For Parents</button>
+                <button class="tab-button bg-white border-2 border-primary text-primary px-6 py-3 rounded-lg font-semibold transition hover:bg-primary-container" onclick="showTab('teens')">👨‍🎓 For Teens & Young Adults</button>
+                <button class="tab-button bg-white border-2 border-primary text-primary px-6 py-3 rounded-lg font-semibold transition hover:bg-primary-container" onclick="showTab('orgs')">🏢 For Organizations</button>
+            </div>
+
+            <!-- Parents Tab -->
+            <div id="parents-tab" class="tab-content">
+                <div class="bg-white rounded-lg p-8 space-y-8">
+                    <h2 class="text-3xl font-bold text-primary mb-6">Cyber Awareness & Hygiene for Parents</h2>
+
+                    <div class="border-l-4 border-primary pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">📱 Talk to Your Children About Online Safety</h3>
+                        <p class="text-on-surface mb-3">Educate your children about potential online threats such as grooming, bullying, and stalking. Keep track of their online activities and set clear guidelines for internet and online games usage.</p>
+                    </div>
+
+                    <div class="border-l-4 border-secondary pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">⚠️ Notice Indicators of Change in Behavior</h3>
+                        <p class="text-on-surface mb-3">If your child begins to spend more time online and starts being defensive or secretive about their online activities, it may be an indicator of cyber grooming. Talk to your child and engage them in other activities.</p>
+                    </div>
+
+                    <div class="border-l-4 border-orange-500 pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">🛡️ Protect Your Child from Cyber Grooming</h3>
+                        <p class="text-on-surface mb-3">Grooming is a practice where someone builds an emotional bond with a child through social media or chat window with an objective of gaining their trust for sexual exploitation.</p>
+                        <ul class="list-disc list-inside text-on-surface space-y-2 mt-3">
+                            <li>Children may remove privacy settings on social media to make more friends</li>
+                            <li>Parents should discuss responsible use of social media</li>
+                            <li>Help them select strong privacy settings</li>
+                        </ul>
+                    </div>
+
+                    <div class="border-l-4 border-red-500 pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">⛔ Never Click Suspicious Links or Attachments</h3>
+                        <p class="text-on-surface">Never click on links or files received in e-mail, text message or social media from unknown persons. This may be an attempt to infect computer with malware.</p>
+                    </div>
+
+                    <div class="border-l-4 border-purple-500 pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">🎥 Cover Your Webcams</h3>
+                        <p class="text-on-surface">A web camera (default in laptops) if hacked/compromised can be leveraged as a medium to observe/watch and record day to day activities. It is recommended to cover webcam when not in use.</p>
+                    </div>
+
+                    <div class="border-l-4 border-blue-500 pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">🔐 Install Anti-virus Software with Parental Control</h3>
+                        <p class="text-on-surface mb-3">Install anti-virus software with parental control functionality or parental control software on the devices used by children and review privacy settings of social media sites used by them.</p>
+                    </div>
+
+                    <div class="border-l-4 border-green-500 pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">🔄 Keep Software Updated</h3>
+                        <p class="text-on-surface mb-3">Keep your software and Operating system up-to-date. Hackers target software vulnerabilities to access private information and putting you at risk, so make sure to update all your software with the latest security patches.</p>
+                        <p class="text-on-surface mt-2 font-semibold">⚠️ Never install software, games, music and apps from untrusted sources.</p>
+                    </div>
+
+                    <div class="border-l-4 border-indigo-500 pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">🌐 Set Secure Browser Settings</h3>
+                        <p class="text-on-surface">Always choose updated version of the browser and install safe browsing tools for protection yourself from hackers and malware.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teens Tab -->
+            <div id="teens-tab" class="tab-content hidden">
+                <div class="bg-white rounded-lg p-8 space-y-8">
+                    <h2 class="text-3xl font-bold text-primary mb-6">Cyber Awareness & Hygiene for Teens & Young Adults</h2>
+
+                    <div class="border-l-4 border-primary pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">🔒 Secure Your Online Presence</h3>
+                        <p class="text-on-surface mb-3">If you have not selected the right settings on your social media accounts, then photos and videos posted can be viewed, downloaded and used by others without your knowledge.</p>
+                        <ul class="list-disc list-inside text-on-surface space-y-2 mt-3">
+                            <li>Select the right privacy settings and content sharing filters</li>
+                            <li>Be selective about accepting friend requests from strangers</li>
+                            <li>Learn how to block someone who is making you uncomfortable</li>
+                            <li>Learn how to remove someone from your friends list</li>
+                            <li>Remember to logout from social media websites after use</li>
+                            <li>Secure your phone with a password</li>
+                        </ul>
+                    </div>
+
+                    <div class="border-l-4 border-orange-500 pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">📹 Be Mindful of Your Appearance on Video Chat</h3>
+                        <p class="text-on-surface mb-3">Your video chats on social media sites can be recorded by the person on the other side. There have been instances where video chats were recorded and shared on social media groups and websites.</p>
+                        <p class="text-on-surface">Be careful while accepting chat requests from strangers.</p>
+                    </div>
+
+                    <div class="border-l-4 border-red-500 pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">📱 Do Not Use Smartphone for Sensitive Photos/Videos</h3>
+                        <p class="text-on-surface mb-3">Most smartphones are connected to internet and cloud storage. If a picture or video has been clicked using smartphone connected with the cloud, it may get saved automatically.</p>
+                        <p class="text-on-surface">Even if you delete photos or videos from your phone, they can be recovered from the cloud account or any other device connected to the cloud using the same account.</p>
+                    </div>
+
+                    <div class="border-l-4 border-purple-500 pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">🚫 Protect Yourself from Cyber Stalking</h3>
+                        <p class="text-on-surface mb-3">Cyber stalkers show advances on a person repeatedly despite clear indication of disinterest. They use internet, email, social media or electronic communication for stalking.</p>
+                        <ul class="list-disc list-inside text-on-surface space-y-2 mt-3">
+                            <li>Disable location services for social media sites and mobile devices</li>
+                            <li>Refrain from sharing personal information with unknown persons</li>
+                            <li>Consult relatives and friends if you think you are a victim</li>
+                        </ul>
+                    </div>
+
+                    <div class="border-l-4 border-blue-500 pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">⚠️ Beware of Fake Social Media Accounts</h3>
+                        <p class="text-on-surface mb-3">Not all accounts are real and not all information provided on accounts are true. Be cautious while accepting friend requests from strangers. If you discover a fake account created in your name, inform the social media service provider immediately so it can be blocked.</p>
+                    </div>
+
+                    <div class="border-l-4 border-green-500 pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">💰 Be Cautious with Sensitive Browsing</h3>
+                        <p class="text-on-surface">Browse shopping or banking websites only on a device that belongs to you or on a trusted network. Avoid using friend's phone, public computer, cyber cafe or free Wi-Fi for sensitive browsing as data can be stolen or copied.</p>
+                    </div>
+
+                    <div class="border-l-4 border-indigo-500 pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">⚙️ Be Careful with Device Servicing/Selling</h3>
+                        <p class="text-on-surface mb-3">Personal computers and mobile devices contain private information which needs to be erased before sending it for repairing, servicing or selling.</p>
+                        <p class="text-on-surface font-semibold">💡 Remember: Deleted data on your communication devices can be recovered!</p>
+                    </div>
+
+                    <div class="border-l-4 border-pink-500 pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">🔐 Protect Your Communication Devices</h3>
+                        <p class="text-on-surface mb-3">Prevent others from accessing your devices by providing password, PIN, Pattern or biometric information. Always install applications from trusted sources only such as Play Store, App Store or official company websites.</p>
+                    </div>
+
+                    <div class="border-l-4 border-cyan-500 pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">🚨 Report Child Sexual Exploitative Material</h3>
+                        <p class="text-on-surface mb-3">Any content related to Child Sexual Exploitative and Abuse Material (CSEAM) should be reported to the concerned social media website or the <a href="https://www.cybercrime.gov.in" target="_blank" class="text-primary font-semibold hover:underline">National Cyber Crime Reporting Portal (www.cybercrime.gov.in)</a></p>
+                        <p class="text-on-surface mt-2">If anybody shares such content with you, inform them that publication, collection and distribution of CSEAM is illegal.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Organizations Tab -->
+            <div id="orgs-tab" class="tab-content hidden">
+                <div class="bg-white rounded-lg p-8 space-y-8">
+                    <h2 class="text-3xl font-bold text-primary mb-6">Cyber Awareness & Hygiene for Organizations</h2>
+
+                    <div class="border-l-4 border-primary pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">📋 How to Deal with CSEAM in Workplace</h3>
+                        <p class="text-on-surface mb-3">All organisations should have clear and strong HR policies on handling content related to Child Sexual Exploitative and Abuse Material (CSEAM).</p>
+                        <ul class="list-disc list-inside text-on-surface space-y-2 mt-3">
+                            <li>Establish clear rules for use of electronic devices provided by the organisation</li>
+                            <li>If any employee is found possessing obscene or indecent content, conduct proper investigation and take action</li>
+                            <li>Report any incidence of sharing and storage of obscene content to the police</li>
+                            <li>Save a copy of the content as evidence with restricted access</li>
+                            <li>Delete all other copies of the content</li>
+                        </ul>
+                    </div>
+
+                    <div class="border-l-4 border-red-500 pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">⚖️ Legal Framework - CSEAM is Illegal</h3>
+                        <p class="text-on-surface mb-3">Under the Information Technology Act, 2000:</p>
+                        <ul class="list-disc list-inside text-on-surface space-y-2 mt-3">
+                            <li><span class="font-semibold">Section 67:</span> Publication and distribution of any material containing sexually explicit act in electronic form is punishable</li>
+                            <li><span class="font-semibold">Section 67A:</span> Distribution of sexually explicit content is a punishable offense</li>
+                            <li><span class="font-semibold">Section 67B:</span> Criminalizes browsing, downloading, creation, publication and distribution of child pornography</li>
+                        </ul>
+                    </div>
+
+                    <div class="border-l-4 border-orange-500 pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">🏢 Organizational Security Practices</h3>
+                        <p class="text-on-surface mb-3">Implement comprehensive cyber security measures across the organization:</p>
+                        <ul class="list-disc list-inside text-on-surface space-y-2 mt-3">
+                            <li>Develop clear IT security policies and procedures</li>
+                            <li>Conduct regular security awareness training for all employees</li>
+                            <li>Implement multi-factor authentication for sensitive systems</li>
+                            <li>Maintain regular data backups and disaster recovery plans</li>
+                            <li>Conduct periodic security audits and vulnerability assessments</li>
+                            <li>Monitor network traffic for suspicious activity</li>
+                        </ul>
+                    </div>
+
+                    <div class="border-l-4 border-green-500 pl-6 py-4">
+                        <h3 class="text-xl font-bold text-on-surface mb-3">📝 Reporting Mechanisms</h3>
+                        <p class="text-on-surface">Organizations can report cyber crimes and CSEAM incidents through the <a href="https://www.cybercrime.gov.in" target="_blank" class="text-primary font-semibold hover:underline">National Cyber Crime Reporting Portal (www.cybercrime.gov.in)</a></p>
+                        <p class="text-on-surface mt-3">Maintain proper documentation of all incidents for legal and compliance purposes.</p>
+                    </div>
+
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mt-8">
+                        <h4 class="text-xl font-bold text-primary mb-2">🔒 Best Practices Summary</h4>
+                        <p class="text-on-surface">Be safe, browse safe! Implement a zero-trust security model, maintain comprehensive logging, conduct regular incident response drills, and ensure all employees understand their role in maintaining organizational cybersecurity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-on-surface text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                            <span class="text-white font-bold">C</span>
+                        </div>
+                        <span class="text-xl font-bold">Cyberztalk</span>
+                    </div>
+                    <p class="text-sm text-gray-300">Intelligent cybersecurity assistance, empowering you to navigate the digital world safely.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider">LEGAL</h3>
+                    <ul class="space-y-2">
+                        <li><a href="privacy-policy.html" class="text-sm text-gray-300 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html" class="text-sm text-gray-300 hover:text-white">Terms of Service</a></li>
+                        <li><a href="cookie-policy.html" class="text-sm text-gray-300 hover:text-white">Cookie Policy</a></li>
+                        <li><a href="compliance.html" class="text-sm text-gray-300 hover:text-white">Compliance</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider">CONNECT</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">LinkedIn</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">X</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Instagram</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-sm text-gray-400">© 2024 Cyberztalk Intelligence. All rights reserved.</div>
+        </div>
+    </footer>
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.add('bg-white', 'border-2', 'border-primary', 'text-primary');
+                btn.classList.remove('bg-primary', 'text-white');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.remove('hidden');
+            // Add active class to clicked button
+            event.target.classList.remove('bg-white', 'border-2', 'border-primary', 'text-primary');
+            event.target.classList.add('bg-primary', 'text-white', 'active');
+        }
+    </script>
+    <script src="js/authNav.js"></script>
+</body>
+</html>

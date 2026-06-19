@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Cyberztalk</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#006688",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#00c2ff",
+                        secondary: "#006b5f",
+                        surface: "#faf8ff",
+                        "on-surface": "#131b2e",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --primary: #006688;
+        }
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        .nav-item {
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-surface">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                        <span class="text-white font-bold">C</span>
+                    </div>
+                    <span class="text-xl font-bold text-primary">Cyberztalk</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="index.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Home</a>
+                    <a href="features.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Features</a>
+                    <a href="report-incident.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Report Incident</a>
+                    <a href="resources.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Resources</a>
+                    <a href="about-us.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">About Us</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a id="navLoginLink" href="login.html" class="text-primary text-sm font-medium hover:text-on-surface">Login</a>
+                    <a id="navGetStartedLink" href="get-started.html" class="bg-primary text-white px-6 py-2 rounded text-sm font-medium hover:bg-on-surface">Get Started</a>
+                    <span id="navAdminLinkContainer" class="hidden"></span>
+                    <span id="navLogoutLinkContainer" class="hidden"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-surface to-primary-container">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold text-on-surface mb-4">Privacy Policy</h1>
+            <p class="text-lg text-on-surface">Last Updated: January 2024</p>
+        </div>
+    </section>
+
+    <!-- Content -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto bg-white rounded-lg p-8 space-y-8">
+            
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">1. Introduction</h2>
+                <p class="text-on-surface">Cyberztalk ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and use our cybersecurity assistance services.</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">2. Information We Collect</h2>
+                <h3 class="text-xl font-semibold text-on-surface mb-2">2.1 Personal Information You Provide</h3>
+                <p class="text-on-surface mb-4">When registering for our services, reporting incidents, or communicating with experts, you may provide:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2 mb-4">
+                    <li>Full name and contact information</li>
+                    <li>Email address and phone number</li>
+                    <li>Physical address and location data</li>
+                    <li>Details about cybersecurity incidents and threats</li>
+                    <li>Payment information (for premium services)</li>
+                    <li>Communication history with experts</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold text-on-surface mb-2">2.2 Automatically Collected Information</h3>
+                <ul class="list-disc list-inside text-on-surface space-y-2">
+                    <li>IP addresses and device identifiers</li>
+                    <li>Browser type and operating system</li>
+                    <li>Pages visited and time spent on our site</li>
+                    <li>Cookies and similar tracking technologies</li>
+                    <li>Log files and usage analytics</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">3. How We Use Your Information</h2>
+                <p class="text-on-surface mb-4">We use collected information to:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2">
+                    <li>Provide, maintain, and improve our cybersecurity services</li>
+                    <li>Process incident reports and connect users with experts</li>
+                    <li>Send transactional emails and service updates</li>
+                    <li>Respond to your inquiries and provide customer support</li>
+                    <li>Conduct research and analytics to enhance security features</li>
+                    <li>Comply with legal obligations and law enforcement requests</li>
+                    <li>Detect, investigate, and prevent fraudulent transactions and abuse</li>
+                    <li>Personalize your experience and provide targeted content</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">4. Information Sharing and Disclosure</h2>
+                <p class="text-on-surface mb-4">We may share your information with:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2">
+                    <li><strong>Verified Security Experts:</strong> When you seek expert assistance, relevant case details are shared with qualified professionals</li>
+                    <li><strong>Law Enforcement:</strong> When required by law or with valid legal process</li>
+                    <li><strong>Service Providers:</strong> Third parties who assist in operating our platform (payment processors, hosting providers, analytics tools)</li>
+                    <li><strong>Business Partners:</strong> Organizations working with us to improve cybersecurity awareness</li>
+                    <li><strong>Government Agencies:</strong> For cybercrime reporting and investigation purposes</li>
+                </ul>
+                <p class="text-on-surface mt-4"><strong>Note:</strong> We do not sell your personal information to third parties for marketing purposes.</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">5. Data Protection and Security</h2>
+                <p class="text-on-surface">We implement industry-standard security measures to protect your information:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2 mt-2">
+                    <li>End-to-end encryption for sensitive communications</li>
+                    <li>Secure HTTPS connections for all data transmission</li>
+                    <li>Regular security audits and penetration testing</li>
+                    <li>Multi-factor authentication options</li>
+                    <li>Restricted access to personal data by authorized personnel only</li>
+                    <li>Secure data storage with backup and disaster recovery protocols</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">6. Your Privacy Rights</h2>
+                <p class="text-on-surface mb-4">Depending on your location, you may have rights including:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2">
+                    <li><strong>Right to Access:</strong> Request copies of your personal data</li>
+                    <li><strong>Right to Correction:</strong> Correct inaccurate information</li>
+                    <li><strong>Right to Deletion:</strong> Request removal of your data (subject to legal requirements)</li>
+                    <li><strong>Right to Opt-Out:</strong> Unsubscribe from marketing communications</li>
+                    <li><strong>Right to Data Portability:</strong> Receive your data in standard formats</li>
+                    <li><strong>Right to Lodge Complaints:</strong> With relevant data protection authorities</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">7. Cookies and Tracking Technologies</h2>
+                <p class="text-on-surface">We use cookies and similar technologies to enhance your experience. You can control cookie preferences through your browser settings. Blocking cookies may affect functionality of certain features.</p>
+                <p class="text-on-surface mt-2">Types of cookies used:</p>
+                <ul class="list-disc list-inside text-on-surface space-y-2">
+                    <li>Essential cookies for website functionality</li>
+                    <li>Analytics cookies to understand usage patterns</li>
+                    <li>Preference cookies to remember your settings</li>
+                    <li>Marketing cookies for targeted content (with consent)</li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">8. Data Retention</h2>
+                <p class="text-on-surface">We retain personal data for as long as necessary to provide services and comply with legal obligations. Incident reports are maintained for investigation and law enforcement cooperation. You can request deletion of your data, subject to legal requirements for record retention.</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">9. International Data Transfers</h2>
+                <p class="text-on-surface">Your information may be transferred, stored, and processed in countries other than your country of residence. These countries may have different data protection laws. By using our services, you consent to transfer of your information to countries outside your country of residence.</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">10. Children's Privacy</h2>
+                <p class="text-on-surface">Cyberztalk services are not directed to individuals under 18 years old. We do not knowingly collect personal information from children. If we become aware of such collection, we will promptly delete such information and notify parent/guardian.</p>
+            </div>
+
+            <div>
+                <h2 class="text-2xl font-bold text-primary mb-4">11. Contact Us</h2>
+                <p class="text-on-surface">For privacy-related inquiries, data access requests, or to exercise your privacy rights, contact us at:</p>
+                <p class="text-on-surface mt-4">
+                    <strong>Email:</strong> privacy@cyberztalk.com<br>
+                    <strong>Mail:</strong> Cyberztalk Privacy Team, [Office Address]<br>
+                    <strong>Response Time:</strong> We aim to respond to privacy requests within 30 days
+                </p>
+            </div>
+
+            <div class="bg-primary-container p-6 rounded-lg">
+                <p class="text-on-surface"><strong>Note:</strong> This privacy policy may be updated periodically. We will notify you of material changes via email or prominent notice on our website. Your continued use of our services constitutes acceptance of updated policies.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-on-surface text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                            <span class="text-white font-bold">C</span>
+                        </div>
+                        <span class="text-xl font-bold">Cyberztalk</span>
+                    </div>
+                    <p class="text-sm text-gray-300">Intelligent cybersecurity assistance, empowering you to navigate the digital world safely.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider">LEGAL</h3>
+                    <ul class="space-y-2">
+                        <li><a href="privacy-policy.html" class="text-sm text-gray-300 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html" class="text-sm text-gray-300 hover:text-white">Terms of Service</a></li>
+                        <li><a href="cookie-policy.html" class="text-sm text-gray-300 hover:text-white">Cookie Policy</a></li>
+                        <li><a href="compliance.html" class="text-sm text-gray-300 hover:text-white">Compliance</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider">CONNECT</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">LinkedIn</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">X (Twitter)</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Instagram</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-sm text-gray-400">© 2024 Cyberztalk Intelligence. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script src="js/authNav.js"></script>
+</body>
+</html>

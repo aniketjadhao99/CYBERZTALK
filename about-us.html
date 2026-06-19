@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Cyberztalk</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#006688",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#00c2ff",
+                        surface: "#faf8ff",
+                        "on-surface": "#131b2e",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --primary: #006688;
+        }
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        .nav-item {
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-surface">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                        <span class="text-white font-bold">C</span>
+                    </div>
+                    <span class="text-xl font-bold text-primary">Cyberztalk</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="index.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Home</a>
+                    <a href="features.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Features</a>
+                    <a href="report-incident.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Report Incident</a>
+                    <a href="resources.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Resources</a>
+                    <a href="about-us.html" class="nav-item active text-on-surface text-sm font-medium hover:text-primary">About Us</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a id="navLoginLink" href="login.html" class="text-primary text-sm font-medium hover:text-on-surface">Login</a>
+                    <a id="navGetStartedLink" href="get-started.html" class="bg-primary text-white px-6 py-2 rounded text-sm font-medium hover:bg-on-surface">Get Started</a>
+                    <span id="navAdminLinkContainer" class="hidden"></span>
+                    <span id="navLogoutLinkContainer" class="hidden"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-surface to-primary-container">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-5xl font-bold text-on-surface mb-4">About Cyberztalk</h1>
+            <p class="text-xl text-on-surface max-w-2xl">Empowering victims with AI-driven cybercrime assistance and expert support.</p>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+                <div>
+                    <h2 class="text-3xl font-bold text-on-surface mb-4">Our Mission</h2>
+                    <p class="text-lg text-on-surface mb-4">At Cyberztalk, we believe that cybersecurity should be accessible to everyone. Our mission is to provide intelligent, compassionate support to victims of cybercrime.</p>
+                    <p class="text-lg text-on-surface">We combine artificial intelligence with human expertise to deliver immediate guidance, secure reporting systems, and expert assistance to help individuals navigate cyber incidents with confidence.</p>
+                </div>
+                <div class="bg-white rounded-lg p-8 shadow-lg">
+                    <div class="space-y-4">
+                        <div class="flex gap-4">
+                            <span class="material-symbols-outlined text-primary text-2xl">check_circle</span>
+                            <div>
+                                <h3 class="font-bold text-on-surface">24/7 Availability</h3>
+                                <p class="text-sm text-on-surface">Assistance whenever you need it</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="material-symbols-outlined text-primary text-2xl">check_circle</span>
+                            <div>
+                                <h3 class="font-bold text-on-surface">Certified Experts</h3>
+                                <p class="text-sm text-on-surface">Professional cybersecurity specialists</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="material-symbols-outlined text-primary text-2xl">check_circle</span>
+                            <div>
+                                <h3 class="font-bold text-on-surface">End-to-End Encryption</h3>
+                                <p class="text-sm text-on-surface">Your communications stay confidential</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <span class="material-symbols-outlined text-primary text-2xl">check_circle</span>
+                            <div>
+                                <h3 class="font-bold text-on-surface">AI-Powered Analysis</h3>
+                                <p class="text-sm text-on-surface">Advanced threat intelligence</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-on-surface mb-12 text-center">Our Core Values</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-surface rounded-lg p-8 text-center">
+                    <span class="material-symbols-outlined text-primary text-5xl block mb-4">privacy_tip</span>
+                    <h3 class="text-xl font-bold text-on-surface mb-2">Privacy First</h3>
+                    <p class="text-on-surface">Your data is sacred. We protect it with military-grade encryption and never share without consent.</p>
+                </div>
+                <div class="bg-surface rounded-lg p-8 text-center">
+                    <span class="material-symbols-outlined text-primary text-5xl block mb-4">groups</span>
+                    <h3 class="text-xl font-bold text-on-surface mb-2">Compassion</h3>
+                    <p class="text-on-surface">We understand the trauma of cybercrime. Our team treats every case with empathy and care.</p>
+                </div>
+                <div class="bg-surface rounded-lg p-8 text-center">
+                    <span class="material-symbols-outlined text-primary text-5xl block mb-4">verified</span>
+                    <h3 class="text-xl font-bold text-on-surface mb-2">Expertise</h3>
+                    <p class="text-on-surface">Our team consists of certified professionals with years of real-world cybersecurity experience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 bg-primary text-white">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to get help?</h2>
+            <p class="text-xl mb-8 text-white text-opacity-90">Report an incident or learn more about how we can assist you.</p>
+            <div class="flex gap-4 justify-center">
+                <a href="report-incident.html" class="bg-white text-primary px-8 py-3 rounded font-bold hover:bg-surface transition-colors">Report Now</a>
+                <a href="features.html" class="border-2 border-white text-white px-8 py-3 rounded font-bold hover:bg-white hover:text-primary transition-colors">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-on-surface text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                            <span class="text-white font-bold">C</span>
+                        </div>
+                        <span class="text-xl font-bold">Cyberztalk</span>
+                    </div>
+                    <p class="text-sm text-gray-300">© 2024 Cyberztalk Intelligence. All rights reserved.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider">LEGAL</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Cookie Policy</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Compliance</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider">SOCIAL</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">LinkedIn</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">X</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Instagram</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="js/authNav.js"></script>
+</body>
+</html>

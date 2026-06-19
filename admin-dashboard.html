@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Cyberztalk</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #006688;
+            --on-primary: #ffffff;
+            --primary-container: #00c2ff;
+            --secondary: #006b5f;
+            --on-surface: #131b2e;
+            --error: #ba1a1a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7fa;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Geist', sans-serif;
+        }
+
+        .sidebar-active {
+            background: linear-gradient(135deg, var(--primary) 0%, #005070 100%);
+            color: white;
+        }
+
+        .case-row:hover {
+            background-color: #f0f7ff;
+            cursor: pointer;
+        }
+
+        .modal-hidden {
+            display: none;
+        }
+
+        .modal-visible {
+            display: flex;
+        }
+
+        .status-new {
+            background-color: #dff0ff;
+            color: var(--primary);
+        }
+
+        .status-assigned {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .status-in-progress {
+            background-color: #fff3e0;
+            color: #ff9800;
+        }
+
+        .status-escalated {
+            background-color: #ffebee;
+            color: #d32f2f;
+        }
+
+        .status-under-review {
+            background-color: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .status-resolved {
+            background-color: #e8f5e9;
+            color: #4caf50;
+        }
+
+        .status-closed {
+            background-color: #e0f2f1;
+            color: #00796b;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#006688",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#00c2ff",
+                        error: "#ba1a1a",
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50">
+    <div class="flex h-screen bg-gray-100">
+        <!-- Sidebar Navigation -->
+        <aside class="w-72 bg-white shadow-lg overflow-y-auto">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-12 h-12 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center shadow-md">
+                        <span class="text-white font-bold text-lg">C</span>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-lg text-on-surface">Cyberztalk</h1>
+                        <p class="text-xs text-gray-500 font-medium">Security Portal</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Profile -->
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-primary-container rounded-full flex items-center justify-center text-white font-bold text-sm">
+                        A
+                    </div>
+                    <div class="flex-1">
+                        <p id="adminName" class="text-sm font-semibold text-on-surface">Admin User</p>
+                        <p id="adminEmail" class="text-xs text-gray-500">admin@cyberztalk.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="p-6 space-y-2">
+                <div class="mb-6">
+                    <a href="admin-dashboard.html" class="sidebar-active flex items-center gap-3 px-4 py-3 rounded-lg text-white transition-all duration-200">
+                        <span class="material-symbols-outlined text-xl">dashboard</span>
+                        <span class="font-medium">Cases</span>
+                    </a>
+                </div>
+
+                <div class="border-t border-gray-200 pt-4">
+                    <p class="text-xs uppercase font-bold text-gray-400 px-4 mb-2">Account</p>
+                    <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface hover:bg-error hover:text-white transition-all duration-200" onclick="handleLogout(); return false;">
+                        <span class="material-symbols-outlined">logout</span>
+                        <span class="font-medium">Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-auto flex flex-col">
+            <!-- Top Header -->
+            <header class="bg-white border-b border-gray-200 px-8 py-4 flex justify-between items-center sticky top-0 z-40 shadow-sm">
+                <div>
+                    <h1 class="text-3xl font-bold text-on-surface">Cases Management</h1>
+                    <p class="text-sm text-gray-500 mt-1">Manage incident cases and update their status</p>
+                </div>
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-3 pl-6 border-l border-gray-200">
+                        <div class="text-right">
+                            <p class="text-sm font-semibold text-on-surface">Admin Portal</p>
+                            <p class="text-xs text-gray-500">System Administrator</p>
+                        </div>
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary to-primary-container rounded-full flex items-center justify-center text-white font-bold">
+                            A
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="flex-1 overflow-auto p-8">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Cases Section -->
+                    <div class="lg:col-span-2 bg-white rounded-xl shadow-sm overflow-hidden">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="text-lg font-bold text-on-surface">All Cases</h3>
+                                    <p class="text-sm text-gray-500 mt-1">Click on a case to view details and update status</p>
+                                </div>
+                                <span id="totalCasesDisplay" class="text-2xl font-bold text-primary">0</span>
+                            </div>
+                        </div>
+
+                        <!-- Cases List -->
+                        <div class="overflow-y-auto max-h-96">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="bg-gray-50 border-b border-gray-200">
+                                        <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Case ID</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Victim</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Type</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Status</th>
+                                        <th class="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="casesTableBody">
+                                    <tr>
+                                        <td colspan="5" class="px-6 py-12 text-center text-gray-500">
+                                            <span class="material-symbols-outlined text-4xl text-gray-300 mb-2 block">inbox</span>
+                                            <p>No cases available</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Weekly Report Section -->
+                    <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                        <div class="px-6 py-4 border-b border-gray-200">
+                            <h3 class="text-lg font-bold text-on-surface">Weekly Report</h3>
+                            <p class="text-sm text-gray-500 mt-1">This week's overview</p>
+                        </div>
+
+                        <div class="p-6 space-y-4">
+                            <!-- Total Cases -->
+                            <div class="bg-blue-50 rounded-lg p-4 border-l-4 border-primary">
+                                <p class="text-sm text-gray-600 font-medium">Total Cases</p>
+                                <p id="reportTotal" class="text-3xl font-bold text-primary mt-2">0</p>
+                            </div>
+
+                            <!-- Open Cases -->
+                            <div class="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-500">
+                                <p class="text-sm text-gray-600 font-medium">Open</p>
+                                <p id="reportOpen" class="text-2xl font-bold text-blue-500 mt-2">0</p>
+                            </div>
+
+                            <!-- Processing Cases -->
+                            <div class="bg-orange-50 rounded-lg p-4 border-l-4 border-orange-500">
+                                <p class="text-sm text-gray-600 font-medium">Processing</p>
+                                <p id="reportProcessing" class="text-2xl font-bold text-orange-500 mt-2">0</p>
+                            </div>
+
+                            <!-- Closed Cases -->
+                            <div class="bg-green-50 rounded-lg p-4 border-l-4 border-green-500">
+                                <p class="text-sm text-gray-600 font-medium">Closed</p>
+                                <p id="reportClosed" class="text-2xl font-bold text-green-500 mt-2">0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Case Details Modal -->
+    <div id="caseModal" class="modal-hidden fixed inset-0 bg-black bg-opacity-50 z-50 items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto">
+            <!-- Modal Header -->
+            <div class="sticky top-0 bg-gradient-to-r from-primary to-secondary px-6 py-4 text-white flex items-center justify-between">
+                <div>
+                    <h2 id="modalCaseId" class="text-2xl font-bold">Case #</h2>
+                    <p id="modalCaseType" class="text-sm text-blue-100 mt-1">Incident Type</p>
+                </div>
+                <button onclick="closeModal()" class="text-white hover:bg-white hover:bg-opacity-20 p-2 rounded-lg transition-colors">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="p-6">
+                <!-- Victim Profile Section -->
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <h3 class="text-lg font-bold text-on-surface mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">person</span>
+                        Victim Profile
+                    </h3>
+                    <div class="space-y-2 text-sm">
+                        <p><span class="font-semibold text-gray-600">Name:</span> <span id="victimName">-</span></p>
+                        <p><span class="font-semibold text-gray-600">Email:</span> <span id="victimEmail">-</span></p>
+                        <p><span class="font-semibold text-gray-600">Phone:</span> <span id="victimPhone">-</span></p>
+                        <p><span class="font-semibold text-gray-600">Location:</span> <span id="victimLocation">-</span></p>
+                        <p><span class="font-semibold text-gray-600">Age Group:</span> <span id="victimAge">-</span></p>
+                    </div>
+                </div>
+
+                <!-- Case Details Section -->
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <h3 class="text-lg font-bold text-on-surface mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">description</span>
+                        Case Details
+                    </h3>
+                    <div class="space-y-3 text-sm">
+                        <div>
+                            <p class="font-semibold text-gray-600 mb-1">Incident Type(s):</p>
+                            <p id="caseIncidentType" class="text-gray-800 bg-gray-50 p-2 rounded">-</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-600 mb-1">Platform(s):</p>
+                            <p id="casePlatform" class="text-gray-800 bg-gray-50 p-2 rounded">-</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-600 mb-1">Description:</p>
+                            <p id="caseDescription" class="text-gray-800 bg-gray-50 p-2 rounded">-</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-600 mb-1">Date Reported:</p>
+                            <p id="caseDateReported" class="text-gray-800">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suspect Information Section -->
+                <div class="mb-6 pb-6 border-b border-gray-200">
+                    <h3 class="text-lg font-bold text-on-surface mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-error">warning</span>
+                        Suspect Information
+                    </h3>
+                    <div class="space-y-2 text-sm">
+                        <p><span class="font-semibold text-gray-600">Suspect Name:</span> <span id="suspectName">-</span></p>
+                        <p><span class="font-semibold text-gray-600">Email:</span> <span id="suspectEmail">-</span></p>
+                        <p><span class="font-semibold text-gray-600">Contact Info:</span> <span id="suspectContact">-</span></p>
+                    </div>
+                </div>
+
+                <!-- Status Update Section -->
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="text-lg font-bold text-on-surface mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">update</span>
+                        Update Case Status
+                    </h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">Current Status:</label>
+                            <p id="currentStatus" class="text-sm font-semibold px-3 py-2 rounded w-fit">-</p>
+                        </div>
+                        <div>
+                            <label for="statusSelect" class="block text-sm font-semibold text-gray-600 mb-2">Change Status To:</label>
+                            <select id="statusSelect" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary">
+                                <option value="">Select a status...</option>
+                                <option value="new">New</option>
+                                <option value="assigned">Assigned</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="escalated">Escalated</option>
+                                <option value="under-review">Under Review</option>
+                                <option value="resolved">Resolved</option>
+                                <option value="closed">Closed</option>
+                            </select>
+                        </div>
+                        <button onclick="updateCaseStatus()" class="w-full bg-primary text-white py-2 px-4 rounded-lg font-semibold hover:bg-opacity-90 transition-colors mt-4">
+                            <span class="material-symbols-outlined inline mr-2">check</span>
+                            Update Status
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const AUTH_TOKEN = localStorage.getItem('authToken');
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        const API_BASE = 'http://localhost:5000/api';
+
+        let allCases = [];
+        let currentCaseId = null;
+
+        // Update admin info
+        if (currentUser.fullName) document.getElementById('adminName').textContent = currentUser.fullName;
+        if (currentUser.email) document.getElementById('adminEmail').textContent = currentUser.email;
+
+        const apiRequest = async (endpoint, options = {}) => {
+            const res = await fetch(`${API_BASE}${endpoint}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: AUTH_TOKEN ? `Bearer ${AUTH_TOKEN}` : ''
+                },
+                ...options
+            });
+            if (!res.ok) throw new Error('Failed to fetch data');
+            return res.json();
+        };
+
+        const formatDate = (dateString) => {
+            try {
+                return new Date(dateString).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+            } catch (e) {
+                return dateString || 'N/A';
+            }
+        };
+
+        const getStatusClass = (status) => {
+            const statusMap = {
+                'new': 'status-new',
+                'assigned': 'status-assigned',
+                'in-progress': 'status-in-progress',
+                'escalated': 'status-escalated',
+                'under-review': 'status-under-review',
+                'resolved': 'status-resolved',
+                'closed': 'status-closed'
+            };
+            return statusMap[status?.toLowerCase()] || 'status-new';
+        };
+
+        const capitalizeStatus = (status) => {
+            const statusMap = {
+                'new': 'New',
+                'assigned': 'Assigned',
+                'in-progress': 'In Progress',
+                'escalated': 'Escalated',
+                'under-review': 'Under Review',
+                'resolved': 'Resolved',
+                'closed': 'Closed'
+            };
+            return statusMap[status?.toLowerCase()] || status;
+        };
+
+        const loadCases = async () => {
+            try {
+                const response = await apiRequest('/cases/all?limit=100');
+                if (response.success) {
+                    allCases = response.data || [];
+                    renderCasesTable();
+                    updateWeeklyReport();
+                }
+            } catch (error) {
+                console.error('Error loading cases:', error);
+            }
+        };
+
+        const renderCasesTable = () => {
+            const tbody = document.getElementById('casesTableBody');
+            document.getElementById('totalCasesDisplay').textContent = allCases.length;
+
+            if (!allCases || allCases.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="px-6 py-12 text-center text-gray-500">
+                            <span class="material-symbols-outlined text-4xl text-gray-300 mb-2 block">inbox</span>
+                            <p>No cases available</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            tbody.innerHTML = '';
+            allCases.forEach((caseItem) => {
+                const row = document.createElement('tr');
+                row.className = 'case-row border-b border-gray-200 cursor-pointer transition-colors';
+                row.onclick = () => openCaseDetails(caseItem);
+
+                const victimName = caseItem.victimInfo?.fullName || 'Unknown';
+                const incidentType = Array.isArray(caseItem.incidentType) 
+                    ? caseItem.incidentType[0] 
+                    : caseItem.incidentType || 'N/A';
+                const statusClass = getStatusClass(caseItem.status);
+                const statusText = capitalizeStatus(caseItem.status);
+
+                row.innerHTML = `
+                    <td class="px-6 py-4 text-primary font-semibold">${caseItem.caseId || 'N/A'}</td>
+                    <td class="px-6 py-4 text-on-surface font-medium">${victimName}</td>
+                    <td class="px-6 py-4 text-gray-600 text-sm">${incidentType}</td>
+                    <td class="px-6 py-4">
+                        <span class="${statusClass} px-3 py-1 rounded-lg text-xs font-semibold">
+                            ${statusText}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 text-gray-600 text-sm">${formatDate(caseItem.createdAt)}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        };
+
+        const updateWeeklyReport = () => {
+            const total = allCases.length;
+            const open = allCases.filter(c => c.status === 'new').length;
+            const processing = allCases.filter(c => c.status === 'assigned' || c.status === 'in-progress').length;
+            const closed = allCases.filter(c => c.status === 'resolved' || c.status === 'closed').length;
+
+            document.getElementById('reportTotal').textContent = total;
+            document.getElementById('reportOpen').textContent = open;
+            document.getElementById('reportProcessing').textContent = processing;
+            document.getElementById('reportClosed').textContent = closed;
+        };
+
+        const openCaseDetails = (caseItem) => {
+            currentCaseId = caseItem._id;
+
+            // Victim Profile
+            document.getElementById('victimName').textContent = caseItem.victimInfo?.fullName || '-';
+            document.getElementById('victimEmail').textContent = caseItem.victimInfo?.email || '-';
+            document.getElementById('victimPhone').textContent = caseItem.victimInfo?.phone || caseItem.victimInfo?.alternateContact || '-';
+            document.getElementById('victimLocation').textContent = `${caseItem.victimInfo?.city || ''}, ${caseItem.victimInfo?.state || ''}`.trim() || '-';
+            document.getElementById('victimAge').textContent = caseItem.victimInfo?.ageGroup || '-';
+
+            // Case Details
+            document.getElementById('modalCaseId').textContent = `Case #${caseItem.caseId || 'N/A'}`;
+            const incidentTypes = Array.isArray(caseItem.incidentType) 
+                ? caseItem.incidentType.join(', ') 
+                : caseItem.incidentType || 'N/A';
+            document.getElementById('modalCaseType').textContent = incidentTypes;
+            document.getElementById('caseIncidentType').textContent = incidentTypes;
+            document.getElementById('casePlatform').textContent = Array.isArray(caseItem.platform) 
+                ? caseItem.platform.join(', ') 
+                : caseItem.platform || '-';
+            document.getElementById('caseDescription').textContent = caseItem.description || '-';
+            document.getElementById('caseDateReported').textContent = formatDate(caseItem.createdAt);
+
+            // Suspect Information
+            document.getElementById('suspectName').textContent = caseItem.suspectInfo?.name || '-';
+            document.getElementById('suspectEmail').textContent = caseItem.suspectInfo?.email || '-';
+            document.getElementById('suspectContact').textContent = caseItem.suspectInfo?.url || caseItem.suspectInfo?.other || '-';
+
+            // Current Status
+            const currentStatus = capitalizeStatus(caseItem.status);
+            const statusClass = getStatusClass(caseItem.status);
+            document.getElementById('currentStatus').textContent = currentStatus;
+            document.getElementById('currentStatus').className = `${statusClass} text-sm font-semibold px-3 py-2 rounded w-fit`;
+
+            // Pre-select current status in dropdown
+            document.getElementById('statusSelect').value = caseItem.status || 'open';
+
+            showModal();
+        };
+
+        const updateCaseStatus = async () => {
+            const newStatus = document.getElementById('statusSelect').value;
+
+            if (!newStatus || !currentCaseId) {
+                alert('Please select a valid status');
+                return;
+            }
+
+            try {
+                const response = await apiRequest(`/cases/${currentCaseId}`, {
+                    method: 'PATCH',
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                if (response.success) {
+                    alert('Case status updated successfully!');
+                    closeModal();
+                    loadCases();
+                } else {
+                    alert('Failed to update case status');
+                }
+            } catch (error) {
+                console.error('Error updating status:', error);
+                alert('Error updating case status');
+            }
+        };
+
+        const showModal = () => {
+            document.getElementById('caseModal').classList.remove('modal-hidden');
+            document.getElementById('caseModal').classList.add('modal-visible');
+        };
+
+        const closeModal = () => {
+            document.getElementById('caseModal').classList.add('modal-hidden');
+            document.getElementById('caseModal').classList.remove('modal-visible');
+        };
+
+        const handleLogout = () => {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('currentUser');
+            window.location.href = 'index.html';
+        };
+
+        // Check authentication
+        if (!AUTH_TOKEN || currentUser.role !== 'admin') {
+            window.location.href = 'login.html';
+        }
+
+        // Load cases on page load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadCases);
+        } else {
+            loadCases();
+        }
+
+        // Refresh every 30 seconds
+        setInterval(loadCases, 30000);
+
+        // Close modal on outside click
+        document.getElementById('caseModal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('caseModal')) {
+                closeModal();
+            }
+        });
+    </script>
+    <script src="js/authNav.js"></script>
+</body>
+</html>

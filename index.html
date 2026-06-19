@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberztalk - AI-Powered Cybercrime Assistance</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #006688;
+            --on-primary: #ffffff;
+            --primary-container: #00c2ff;
+            --on-primary-container: #004c66;
+            --secondary: #006b5f;
+            --on-secondary: #ffffff;
+            --surface: #faf8ff;
+            --on-surface: #131b2e;
+            --outline: #6d7980;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--on-surface);
+        }
+        .font-headline {
+            font-family: 'Geist', sans-serif;
+        }
+        .nav-item {
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #faf8ff 0%, #e2e7ff 100%);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 102, 136, 0.1);
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#006688",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#00c2ff",
+                        "on-primary-container": "#004c66",
+                        secondary: "#006b5f",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#6df5e1",
+                        "on-secondary-container": "#006f64",
+                        tertiary: "#006591",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#51beff",
+                        error: "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        surface: "#faf8ff",
+                        "on-surface": "#131b2e",
+                        "surface-variant": "#dae2fd",
+                        outline: "#6d7980",
+                    },
+                    fontFamily: {
+                        headline: ['Geist', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                        <span class="text-white font-bold text-lg font-headline">C</span>
+                    </div>
+                    <span class="text-xl font-bold font-headline text-primary">Cyberztalk</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="index.html" class="nav-item active text-on-surface font-body text-sm font-medium hover:text-primary">Home</a>
+                    <a href="features.html" class="nav-item text-on-surface font-body text-sm font-medium hover:text-primary">Features</a>
+                    <a href="report-incident.html" class="nav-item text-on-surface font-body text-sm font-medium hover:text-primary">Report Incident</a>
+                    <a href="resources.html" class="nav-item text-on-surface font-body text-sm font-medium hover:text-primary">Resources</a>
+                    <a href="about-us.html" class="nav-item text-on-surface font-body text-sm font-medium hover:text-primary">About Us</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a id="navLoginLink" href="login.html" class="text-primary font-body text-sm font-medium hover:text-on-primary-container">Login</a>
+                    <a id="navGetStartedLink" href="get-started.html" class="bg-primary text-on-primary px-6 py-2 rounded font-body text-sm font-medium hover:bg-on-primary-container transition-colors">Get Started</a>
+                    <span id="navAdminLinkContainer" class="hidden"></span>
+                    <span id="navLogoutLinkContainer" class="hidden"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient py-32 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-outline-variant mb-6">
+                        <span class="material-symbols-outlined text-primary text-lg">verified</span>
+                        <span class="text-xs font-headline font-semibold text-on-surface">TRUSTED SECURE PLATFORM</span>
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-headline font-bold text-on-surface mb-4">
+                        AI-Powered<br><span class="text-primary">Cybercrime Assistance</span><br>for Victims
+                    </h1>
+                    <p class="text-lg text-on-surface font-body mb-8 leading-relaxed">
+                        Navigate the digital storm with serene security. Our intelligent platform provides immediate guidance, secure reporting, and expert support to resolve cyber incidents efficiently.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="report-incident.html" class="bg-primary text-on-primary px-8 py-3 rounded font-headline font-semibold hover:bg-on-primary-container transition-colors">Report Incident</a>
+                        <a href="about-us.html" class="border-2 border-primary text-primary px-8 py-3 rounded font-headline font-semibold hover:bg-primary-container transition-colors">Learn More</a>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <div class="relative w-full max-w-md">
+                        <div class="w-64 h-64 md:w-80 md:h-80 bg-gradient-to-br from-primary-container to-primary rounded-3xl shadow-2xl opacity-80"></div>
+                        <div class="absolute top-8 right-8 bg-white rounded-lg p-4 shadow-lg max-w-xs">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="material-symbols-outlined text-primary">verified_user</span>
+                                <span class="font-headline font-semibold text-sm">Secure Platform</span>
+                            </div>
+                            <p class="text-xs text-on-surface">End-to-end encrypted communications</p>
+                        </div>
+                        <div class="absolute bottom-8 left-8 bg-white rounded-lg p-4 shadow-lg max-w-xs">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="material-symbols-outlined text-secondary">privacy_tip</span>
+                                <span class="font-headline font-semibold text-sm">Privacy First</span>
+                            </div>
+                            <p class="text-xs text-on-surface">Your data stays confidential</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cyber Crimes & Trending Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-headline font-bold text-on-surface mb-4">Latest Cyber Crime Trends</h2>
+                <p class="text-lg text-on-surface max-w-2xl mx-auto">Stay informed about the most common and emerging cyber threats</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Phishing -->
+                <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-lg p-8 border border-red-200 hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-white">phishing</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-red-900 mb-2">Phishing Attacks</h3>
+                    <p class="text-red-800 mb-4">Deceptive emails targeting credentials and sensitive information</p>
+                    <ul class="text-sm text-red-700 space-y-1">
+                        <li>• Email spoofing</li>
+                        <li>• Credential harvesting</li>
+                        <li>• Business email compromise</li>
+                    </ul>
+                </div>
+
+                <!-- Identity Theft -->
+                <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-8 border border-orange-200 hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-white">verified_user</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-orange-900 mb-2">Identity Theft</h3>
+                    <p class="text-orange-800 mb-4">Unauthorized access and misuse of personal information</p>
+                    <ul class="text-sm text-orange-700 space-y-1">
+                        <li>• Personal data breaches</li>
+                        <li>• Account takeover</li>
+                        <li>• Credit fraud</li>
+                    </ul>
+                </div>
+
+                <!-- Financial Fraud -->
+                <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-lg p-8 border border-yellow-200 hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-yellow-500 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-white">paid</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-yellow-900 mb-2">Financial Fraud</h3>
+                    <p class="text-yellow-800 mb-4">Unauthorized transactions and monetary loss</p>
+                    <ul class="text-sm text-yellow-700 space-y-1">
+                        <li>• Online banking fraud</li>
+                        <li>• Cryptocurrency scams</li>
+                        <li>• Payment system abuse</li>
+                    </ul>
+                </div>
+
+                <!-- Cyberbullying -->
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-8 border border-purple-200 hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-purple-500 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-white">forum</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-purple-900 mb-2">Cyberbullying</h3>
+                    <p class="text-purple-800 mb-4">Online harassment and intimidation tactics</p>
+                    <ul class="text-sm text-purple-700 space-y-1">
+                        <li>• Defamation campaigns</li>
+                        <li>• Social media harassment</li>
+                        <li>• Doxxing attacks</li>
+                    </ul>
+                </div>
+
+                <!-- Ransomware -->
+                <div class="bg-gradient-to-br from-red-50 to-pink-100 rounded-lg p-8 border border-pink-200 hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-white">lock_clock</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-pink-900 mb-2">Ransomware</h3>
+                    <p class="text-pink-800 mb-4">Malicious software encrypting data for extortion</p>
+                    <ul class="text-sm text-pink-700 space-y-1">
+                        <li>• File encryption</li>
+                        <li>• Data extortion</li>
+                        <li>• System lockdown</li>
+                    </ul>
+                </div>
+
+                <!-- Online Scams -->
+                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-8 border border-green-200 hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-white">warning</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-green-900 mb-2">Online Scams</h3>
+                    <p class="text-green-800 mb-4">Fraudulent schemes targeting victims online</p>
+                    <ul class="text-sm text-green-700 space-y-1">
+                        <li>• Romance scams</li>
+                        <li>• Prize/lottery scams</li>
+                        <li>• Job offer frauds</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+                                <span class="font-headline font-semibold text-sm">Privacy First</span>
+                            </div>
+                            <p class="text-xs text-on-surface">Your data stays confidential</p>
+                        </div>
+                        <div class="absolute bottom-20 right-4 bg-white rounded-lg p-4 shadow-lg max-w-xs">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="material-symbols-outlined text-error">support_agent</span>
+                                <span class="font-headline font-semibold text-sm">24/7 Availability</span>
+                            </div>
+                            <p class="text-xs text-on-surface">Always here when you need us</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-on-surface text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                            <span class="text-white font-bold text-lg font-headline">C</span>
+                        </div>
+                        <span class="text-xl font-bold font-headline">Cyberztalk</span>
+                    </div>
+                    <p class="text-sm text-gray-300">© 2024 Cyberztalk Intelligence. All rights reserved.</p>
+                </div>
+                <div>
+                    <h3 class="font-headline font-semibold mb-4 text-sm uppercase tracking-wider">LEGAL</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white transition-colors">Cookie Policy</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white transition-colors">Compliance</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-headline font-semibold mb-4 text-sm uppercase tracking-wider">SOCIAL</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white transition-colors">LinkedIn</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white transition-colors">X (Twitter)</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white transition-colors">Instagram</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white transition-colors">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8">
+                <p class="text-center text-sm text-gray-400">Intelligent cybersecurity assistance, empowering you to navigate the digital world safely.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation active state
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+    <script src="js/authNav.js"></script>
+</body>
+</html>

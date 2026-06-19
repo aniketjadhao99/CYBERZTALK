@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - Cyberztalk</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#006688",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#00c2ff",
+                        "on-primary-container": "#004c66",
+                        secondary: "#006b5f",
+                        surface: "#faf8ff",
+                        "on-surface": "#131b2e",
+                        outline: "#6d7980",
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --primary: #006688;
+            --on-primary: #ffffff;
+            --primary-container: #00c2ff;
+        }
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        .nav-item {
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-surface">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                        <span class="text-white font-bold">C</span>
+                    </div>
+                    <span class="text-xl font-bold text-primary">Cyberztalk</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="index.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Home</a>
+                    <a href="features.html" class="nav-item active text-on-surface text-sm font-medium hover:text-primary">Features</a>
+                    <a href="report-incident.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Report Incident</a>
+                    <a href="resources.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">Resources</a>
+                    <a href="about-us.html" class="nav-item text-on-surface text-sm font-medium hover:text-primary">About Us</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a id="navLoginLink" href="login.html" class="text-primary text-sm font-medium hover:text-on-primary-container">Login</a>
+                    <a id="navGetStartedLink" href="get-started.html" class="bg-primary text-on-primary px-6 py-2 rounded text-sm font-medium hover:bg-on-primary-container">Get Started</a>
+                    <span id="navAdminLinkContainer" class="hidden"></span>
+                    <span id="navLogoutLinkContainer" class="hidden"></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Features Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-5xl font-bold text-on-surface mb-4">Platform Features</h1>
+                <p class="text-lg text-on-surface max-w-2xl mx-auto">Expert Help in Under 60 Seconds - Think Astrotalk, but for Cyber Emergencies</p>
+            </div>
+
+            <!-- Two-Layer Solution -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
+                <!-- Layer 1: AI Triage -->
+                <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg p-12 text-white">
+                    <div class="mb-8">
+                        <h2 class="text-3xl font-bold mb-2">LAYER 1 - AI TRIAGE</h2>
+                        <p class="text-blue-100 text-lg font-semibold">FREE</p>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined flex-shrink-0 mt-1">check_circle</span>
+                            <span>[AI] Instant AI Bot activates in 60 seconds</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined flex-shrink-0 mt-1">check_circle</span>
+                            <span>[>] Step-by-step damage control protocol</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined flex-shrink-0 mt-1">check_circle</span>
+                            <span>[#] Triage logic for Top 10 India cybercrimes</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined flex-shrink-0 mt-1">check_circle</span>
+                            <span>[*] Expert-ready on Day One</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Layer 2: Expert Marketplace -->
+                <div class="bg-gradient-to-br from-cyan-400 to-cyan-600 rounded-lg p-12 text-white">
+                    <div class="mb-8">
+                        <h2 class="text-3xl font-bold mb-2">LAYER 2 - EXPERT MARKETPLACE</h2>
+                        <p class="text-cyan-100 text-lg font-semibold">PAID</p>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined flex-shrink-0 mt-1">verified</span>
+                            <span>[v] CERT-IN vetted Ethical Hackers</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined flex-shrink-0 mt-1">verified</span>
+                            <span>[=] Expert Cyber Lawyers on-demand</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined flex-shrink-0 mt-1">verified</span>
+                            <span>[$] Per-minute or per-session billing</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined flex-shrink-0 mt-1">verified</span>
+                            <span>[@] Verified, trusted, accessible 24/7</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- USP Banner -->
+            <div class="bg-blue-900 text-white rounded-lg p-6 text-center mb-20">
+                <h3 class="text-lg font-bold">USP: The ONLY platform combining Real-Time AI Triage + Verified Human Experts — backed by CYBERZSEC SOLUTIONS PVT. LTD.</h3>
+            </div>
+
+            <!-- Core Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 3 -->
+                <div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-primary-container rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-primary">assignment</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-on-surface mb-2">Incident Reporting</h3>
+                    <p class="text-on-surface">Streamlined incident documentation and tracking</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-primary-container rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-primary">person</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-on-surface mb-2">Expert Support</h3>
+                    <p class="text-on-surface">Access to certified cybersecurity professionals</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-primary-container rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-primary">analytics</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-on-surface mb-2">Real-time Analytics</h3>
+                    <p class="text-on-surface">Dashboard with threat intelligence insights</p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-primary-container rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-primary">schedule</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-on-surface mb-2">24/7 Support</h3>
+                    <p class="text-on-surface">Round-the-clock assistance when you need it</p>
+                </div>
+
+                <!-- Feature: Secure Platform -->
+                <div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-primary-container rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-primary">security</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-on-surface mb-2">Secure Platform</h3>
+                    <p class="text-on-surface">End-to-end encrypted communications</p>
+                </div>
+
+                <!-- Feature: Privacy First -->
+                <div class="bg-white rounded-lg p-8 shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="w-12 h-12 bg-primary-container rounded-lg flex items-center justify-center mb-4">
+                        <span class="material-symbols-outlined text-primary">privacy_tip</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-on-surface mb-2">Privacy First</h3>
+                    <p class="text-on-surface">Your data stays confidential</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-on-surface text-white py-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+                            <span class="text-white font-bold">C</span>
+                        </div>
+                        <span class="text-xl font-bold">Cyberztalk</span>
+                    </div>
+                    <p class="text-sm text-gray-300">© 2024 Cyberztalk Intelligence. All rights reserved.</p>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider">LEGAL</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Terms of Service</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Cookie Policy</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Compliance</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold mb-4 text-sm uppercase tracking-wider">SOCIAL</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">LinkedIn</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">X</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">Instagram</a></li>
+                        <li><a href="#" class="text-sm text-gray-300 hover:text-white">YouTube</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="js/authNav.js"></script>
+</body>
+</html>
