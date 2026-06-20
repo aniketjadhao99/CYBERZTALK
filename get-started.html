@@ -138,9 +138,12 @@
                 const result = await response.json();
 
                 if (result.success) {
-                    alert('Account created successfully! Redirecting to login...');
+                    alert('Account created successfully! Redirecting to dashboard...');
+                    // Auto-login the user
                     localStorage.setItem('authToken', result.data.token);
-                    window.location.href = 'index.html';
+                    localStorage.setItem('currentUser', JSON.stringify(result.data.user));
+                    // Redirect to victim dashboard instead of homepage
+                    window.location.href = 'victim-dashboard.html';
                 } else {
                     alert(`Error: ${result.message}`);
                 }

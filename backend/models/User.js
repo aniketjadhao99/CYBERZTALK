@@ -25,6 +25,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         match: [/^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$/, 'Please provide a valid phone number']
     },
+    location: {
+        type: String,
+        trim: true,
+        maxlength: [100, 'Location cannot exceed 100 characters']
+    },
     avatar: {
         type: String,
         default: null

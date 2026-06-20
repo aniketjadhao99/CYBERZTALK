@@ -4,7 +4,7 @@ import { generateToken, generateRefreshToken } from '../utils/tokenUtils.js';
 // Register User
 export const register = async (req, res) => {
     try {
-        const { fullName, email, password, phone, role } = req.body;
+        const { fullName, email, password, phone, role, location } = req.body;
 
         // Validate input
         if (!fullName || !email || !password) {
@@ -29,6 +29,7 @@ export const register = async (req, res) => {
             email,
             password,
             phone,
+            location,
             role: role || 'victim'
         });
 
@@ -132,11 +133,21 @@ export const getCurrentUser = async (req, res) => {
 // Update User Profile
 export const updateProfile = async (req, res) => {
     try {
-        const { fullName, phone, avatar } = req.body;
+        const { name, fullName, email, phone, location, avatar } = req.body;
+        
+        // Support both 'name' and 'fullName' field names
+        const userFullName = name || fullName;
+
+        const updateData = {};
+        if (userFullName) updateData.fullName = userFullName;
+        if (email) updateData.email = email;
+        if (phone) updateData.phone = phone;
+        if (location) updateData.location = location;
+        if (avatar) updateData.avatar = avatar;
 
         let user = await User.findByIdAndUpdate(
             req.userId,
-            { fullName, phone, avatar },
+            updateData,
             { new: true, runValidators: true }
         );
 

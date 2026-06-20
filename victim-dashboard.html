@@ -57,6 +57,12 @@
         .status-under-review { background-color: #e9d5ff; color: #6b21a8; }
         .status-resolved { background-color: #dcfce7; color: #166534; }
         .status-closed { background-color: #e5e7eb; color: #374151; }
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body class="bg-surface">
@@ -101,7 +107,12 @@
 
         <!-- Profile Card -->
         <section class="bg-white rounded-lg shadow-sm p-8 mb-8">
-            <h2 class="text-2xl font-bold text-primary mb-6">Your Profile</h2>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-primary">Your Profile</h2>
+                <button onclick="openEditProfileModal()" class="bg-primary text-white px-4 py-2 rounded font-medium hover:bg-on-surface transition">
+                    <span class="material-symbols-outlined inline mr-1 text-sm">edit</span> Edit Profile
+                </button>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="space-y-4">
                     <div>
@@ -185,23 +196,32 @@
             </div>
         </section>
 
-        <!-- Cases Table -->
-        <section class="bg-white rounded-lg shadow-sm p-8">
-            <h2 class="text-2xl font-bold text-primary mb-6">My Cases</h2>
+        <!-- Cases Records Section -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-bold text-primary mb-6">Your Case Records</h2>
             
-            <div id="loadingSpinner" class="text-center py-8">
+            <div id="casesLoadingSpinner" class="text-center py-8">
                 <span class="material-symbols-outlined animate-spin text-primary text-3xl">hourglass_top</span>
-                <p class="text-on-surface mt-2">Loading your cases...</p>
+                <p class="text-on-surface mt-2">Loading your case records...</p>
             </div>
 
-            <div id="noCasesMessage" class="text-center py-8 hidden">
+            <div id="noCasesMessage" class="text-center py-12 bg-white rounded-lg shadow-sm hidden">
                 <span class="material-symbols-outlined text-4xl text-on-surface opacity-30 block mb-2">folder_open</span>
-                <p class="text-on-surface">You haven't reported any incidents yet.</p>
-                <button onclick="window.location.href='report-incident.html'" class="mt-4 text-primary font-semibold hover:underline">
+                <p class="text-on-surface text-lg mb-4">You haven't reported any incidents yet.</p>
+                <button onclick="window.location.href='report-incident.html'" class="bg-primary text-white px-6 py-3 rounded font-semibold hover:bg-on-surface transition">
                     Report your first incident →
                 </button>
             </div>
 
+            <div id="casesCardsContainer" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Case cards will be populated here -->
+            </div>
+        </section>
+
+        <!-- Cases Table View -->
+        <section class="bg-white rounded-lg shadow-sm p-8">
+            <h2 class="text-2xl font-bold text-primary mb-6">Cases Summary</h2>
+            
             <div id="casesTableContainer" class="overflow-x-auto hidden">
                 <table class="w-full">
                     <thead>
@@ -210,7 +230,6 @@
                             <th class="text-left py-3 px-4 text-on-surface font-semibold">Incident Type</th>
                             <th class="text-left py-3 px-4 text-on-surface font-semibold">Reported Date</th>
                             <th class="text-left py-3 px-4 text-on-surface font-semibold">Status</th>
-                            <th class="text-left py-3 px-4 text-on-surface font-semibold">Priority</th>
                             <th class="text-left py-3 px-4 text-on-surface font-semibold">Action</th>
                         </tr>
                     </thead>
@@ -221,6 +240,53 @@
             </div>
         </section>
 
+    </div>
+
+    <!-- Case Details Modal -->
+    <div id="caseDetailsModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" style="display: none;">
+        <div class="bg-white rounded-lg shadow-lg max-w-2xl w-full max-h-screen overflow-y-auto">
+            <div class="sticky top-0 bg-white border-b border-gray-200 p-6 flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-primary">Case Details</h2>
+                <button onclick="closeCaseDetailsModal()" class="text-gray-500 hover:text-gray-700 text-2xl">×</button>
+            </div>
+            <div id="caseDetailsContent" class="p-6 space-y-6">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div id="editProfileModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4" style="display: none;">
+        <div class="bg-white rounded-lg shadow-lg max-w-2xl w-full">
+            <div class="border-b border-gray-200 p-6 flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-primary">Edit Profile</h2>
+                <button onclick="closeEditProfileModal()" class="text-gray-500 hover:text-gray-700 text-2xl">×</button>
+            </div>
+            <form id="editProfileForm" class="p-6 space-y-4" onsubmit="handleEditProfile(event)">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-on-surface mb-2">Full Name</label>
+                        <input type="text" id="editName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-on-surface mb-2">Email Address</label>
+                        <input type="email" id="editEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-on-surface mb-2">Phone Number</label>
+                        <input type="tel" id="editPhone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-on-surface mb-2">Location</label>
+                        <input type="text" id="editLocation" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                    </div>
+                </div>
+                <div class="flex gap-3 justify-end pt-4">
+                    <button type="button" onclick="closeEditProfileModal()" class="px-6 py-2 border border-gray-300 rounded-lg font-medium text-on-surface hover:bg-gray-50">Cancel</button>
+                    <button type="submit" class="px-6 py-2 bg-primary text-white rounded-lg font-medium hover:bg-on-surface">Save Changes</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -259,6 +325,7 @@
         </div>
     </footer>
 
+    <script src="js/config.js"></script>
     <script src="js/api.js"></script>
     <script>
         // Check if user is logged in
@@ -272,7 +339,7 @@
             }
 
             const user = JSON.parse(currentUser);
-            document.getElementById('navUserName').textContent = user.name;
+            document.getElementById('navUserName').textContent = user.name || user.fullName;
 
             // Load user profile
             loadUserProfile(user);
@@ -282,7 +349,7 @@
         });
 
         function loadUserProfile(user) {
-            document.getElementById('profileName').textContent = user.name || '-';
+            document.getElementById('profileName').textContent = user.fullName || user.name || '-';
             document.getElementById('profileEmail').textContent = user.email || '-';
             document.getElementById('profilePhone').textContent = user.phone || '-';
             document.getElementById('profileLocation').textContent = user.location || '-';
@@ -310,7 +377,11 @@
 
                 const data = await response.json();
                 const cases = data.data || data;
-                document.getElementById('loadingSpinner').classList.add('hidden');
+                
+                // Store cases in session storage for modal access
+                sessionStorage.setItem('userCases', JSON.stringify(cases));
+                
+                document.getElementById('casesLoadingSpinner').classList.add('hidden');
 
                 if (cases.length === 0) {
                     document.getElementById('noCasesMessage').classList.remove('hidden');
@@ -330,6 +401,89 @@
                 document.getElementById('statResolved').textContent = stats.resolved;
                 document.getElementById('statEscalated').textContent = stats.escalated;
                 document.getElementById('profileCasesCount').textContent = stats.total;
+
+                // Populate case cards
+                const cardsContainer = document.getElementById('casesCardsContainer');
+                cardsContainer.innerHTML = '';
+
+                cases.forEach(caseItem => {
+                    const reportedDate = new Date(caseItem.createdAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric'
+                    });
+
+                    const incidentTypes = Array.isArray(caseItem.incidentType) 
+                        ? caseItem.incidentType.join(', ') 
+                        : caseItem.incidentType;
+
+                    const platforms = Array.isArray(caseItem.platform) 
+                        ? caseItem.platform.join(', ') 
+                        : caseItem.platform;
+
+                    const card = document.createElement('div');
+                    card.className = 'bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition cursor-pointer border-l-4';
+                    
+                    // Set border color based on status
+                    const statusColors = {
+                        'new': 'border-blue-500',
+                        'assigned': 'border-orange-500',
+                        'in-progress': 'border-yellow-500',
+                        'escalated': 'border-red-500',
+                        'under-review': 'border-purple-500',
+                        'resolved': 'border-green-500',
+                        'closed': 'border-gray-500'
+                    };
+                    
+                    card.classList.add(statusColors[caseItem.status] || 'border-gray-500');
+
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase tracking-wide">Case ID</p>
+                                <p class="text-lg font-bold text-on-surface">${caseItem.caseId || '-'}</p>
+                            </div>
+                            <span class="status-badge status-${caseItem.status}">
+                                ${capitalizeStatus(caseItem.status)}
+                            </span>
+                        </div>
+                        
+                        <div class="space-y-3 mb-4">
+                            <div>
+                                <p class="text-xs text-gray-500 font-semibold">INCIDENT TYPE</p>
+                                <p class="text-on-surface">${capitalizeIncident(incidentTypes)}</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 font-semibold">REPORTED</p>
+                                <p class="text-on-surface text-sm">${reportedDate}</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-500 font-semibold">PLATFORM(S)</p>
+                                <p class="text-on-surface text-sm">${capitalizeIncident(platforms)}</p>
+                            </div>
+                        </div>
+                        
+                        ${caseItem.description ? `
+                        <div class="bg-gray-50 p-3 rounded mb-4 border border-gray-200">
+                            <p class="text-xs text-gray-500 font-semibold mb-1">DESCRIPTION</p>
+                            <p class="text-sm text-on-surface line-clamp-2">${caseItem.description}</p>
+                        </div>
+                        ` : ''}
+                        
+                        <div class="flex gap-2">
+                            <button onclick="openCaseDetailsModal('${caseItem._id}')" class="flex-1 bg-primary text-white py-2 rounded font-medium hover:bg-blue-700 transition text-sm">
+                                View Full Details
+                            </button>
+                            <button onclick="toggleCaseExpand(event)" data-case-id="${caseItem._id}" class="px-4 py-2 border border-primary text-primary rounded font-medium hover:bg-blue-50 transition text-sm">
+                                Expand
+                            </button>
+                        </div>
+                    `;
+
+                    cardsContainer.appendChild(card);
+                });
+
+                document.getElementById('casesCardsContainer').classList.remove('hidden');
 
                 // Populate table
                 const tableBody = document.getElementById('casesTableBody');
@@ -358,9 +512,8 @@
                                 ${capitalizeStatus(caseItem.status)}
                             </span>
                         </td>
-                        <td class="py-3 px-4 text-on-surface">${caseItem.priority || 'Normal'}</td>
                         <td class="py-3 px-4">
-                            <button onclick="viewCaseDetails('${caseItem._id}')" class="text-primary font-semibold hover:underline">
+                            <button onclick="openCaseDetailsModal('${caseItem._id}')" class="text-primary font-semibold hover:underline">
                                 View Details
                             </button>
                         </td>
@@ -373,7 +526,7 @@
 
             } catch (error) {
                 console.error('Error loading cases:', error);
-                document.getElementById('loadingSpinner').classList.add('hidden');
+                document.getElementById('casesLoadingSpinner').classList.add('hidden');
                 document.getElementById('noCasesMessage').classList.remove('hidden');
                 document.getElementById('noCasesMessage').innerHTML = `
                     <span class="material-symbols-outlined text-4xl text-red-600 block mb-2">error</span>
@@ -402,16 +555,271 @@
                 .join(' ');
         }
 
-        function viewCaseDetails(caseId) {
-            // Store case ID in session storage for details page
-            sessionStorage.setItem('selectedCaseId', caseId);
-            window.location.href = `case-management.html?id=${caseId}`;
+        function toggleCaseExpand(event) {
+            event.preventDefault();
+            const btn = event.target.closest('button');
+            const caseId = btn.getAttribute('data-case-id');
+            const card = btn.closest('.bg-white');
+            
+            // Check if details are already showing
+            const detailsSection = card.querySelector('[data-details-section]');
+            if (detailsSection) {
+                detailsSection.remove();
+                btn.textContent = 'Expand';
+            } else {
+                // Show details
+                const cases = JSON.parse(sessionStorage.getItem('userCases') || '[]');
+                const caseItem = cases.find(c => c._id === caseId);
+                
+                if (caseItem) {
+                    const platforms = Array.isArray(caseItem.platform) 
+                        ? caseItem.platform.join(', ') 
+                        : caseItem.platform;
+
+                    const detailsHtml = `
+                        <div data-details-section class="mt-4 pt-4 border-t border-gray-200 space-y-3">
+                            <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                                <p class="text-xs text-gray-600 font-semibold mb-2">FULL DESCRIPTION</p>
+                                <p class="text-sm text-on-surface">${caseItem.description || 'No description'}</p>
+                            </div>
+                            <div class="bg-purple-50 p-3 rounded border border-purple-200">
+                                <p class="text-xs text-gray-600 font-semibold mb-2">PLATFORM(S)</p>
+                                <p class="text-sm text-on-surface">${capitalizeIncident(platforms)}</p>
+                            </div>
+                            ${caseItem.notes ? `
+                            <div class="bg-yellow-50 p-3 rounded border border-yellow-200">
+                                <p class="text-xs text-gray-600 font-semibold mb-2">NOTES</p>
+                                <p class="text-sm text-on-surface">${caseItem.notes}</p>
+                            </div>
+                            ` : ''}
+                            <div class="text-xs text-gray-500 space-y-1">
+                                <p><strong>Created:</strong> ${new Date(caseItem.createdAt).toLocaleString()}</p>
+                                <p><strong>Updated:</strong> ${new Date(caseItem.updatedAt).toLocaleString()}</p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    const wrapper = document.createElement('div');
+                    wrapper.innerHTML = detailsHtml;
+                    card.insertBefore(wrapper.firstElementChild, card.querySelector('[data-details-section]?.nextSibling || undefined'));
+                    btn.textContent = 'Collapse';
+                }
+            }
         }
 
         function handleLogout() {
             localStorage.removeItem('authToken');
             localStorage.removeItem('currentUser');
             window.location.href = 'index.html';
+        }
+
+        function openEditProfileModal() {
+            const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+            document.getElementById('editName').value = user.fullName || user.name || '';
+            document.getElementById('editEmail').value = user.email || '';
+            document.getElementById('editPhone').value = user.phone || '';
+            document.getElementById('editLocation').value = user.location || '';
+            document.getElementById('editProfileModal').style.display = 'flex';
+        }
+
+        function closeEditProfileModal() {
+            document.getElementById('editProfileModal').style.display = 'none';
+        }
+
+        async function handleEditProfile(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('editName').value;
+            const email = document.getElementById('editEmail').value;
+            const phone = document.getElementById('editPhone').value;
+            const location = document.getElementById('editLocation').value;
+            
+            try {
+                const authToken = localStorage.getItem('authToken');
+                const response = await fetch(`${window.API_BASE_URL}/auth/update-profile`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authToken}`
+                    },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        phone,
+                        location
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Update localStorage with the returned user data
+                    localStorage.setItem('currentUser', JSON.stringify(result.data));
+                    
+                    // Update display
+                    loadUserProfile(result.data);
+                    closeEditProfileModal();
+                    alert('Profile updated successfully!');
+                } else {
+                    alert(`Error: ${result.message}`);
+                }
+            } catch (error) {
+                console.error('Error updating profile:', error);
+                alert('An error occurred while updating your profile. Please try again.');
+            }
+        }
+
+        function openCaseDetailsModal(caseId) {
+            console.log('Opening case details for:', caseId);
+            const cases = JSON.parse(sessionStorage.getItem('userCases') || '[]');
+            console.log('Stored cases:', cases);
+            const caseItem = cases.find(c => c._id === caseId);
+            console.log('Found case item:', caseItem);
+            
+            if (caseItem) {
+                displayCaseDetails(caseItem);
+                document.getElementById('caseDetailsModal').style.display = 'flex';
+            } else {
+                alert('Case not found. Please refresh and try again.');
+            }
+        }
+
+        function closeCaseDetailsModal() {
+            document.getElementById('caseDetailsModal').style.display = 'none';
+        }
+
+        function displayCaseDetails(caseItem) {
+            const reportedDate = new Date(caseItem.createdAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            const incidentTypes = Array.isArray(caseItem.incidentType) 
+                ? caseItem.incidentType.join(', ') 
+                : caseItem.incidentType;
+
+            // Handle both assignedTo and assignedExpert field names
+            const assignedOfficer = caseItem.assignedTo || caseItem.assignedExpert || 'Not yet assigned';
+
+            // Handle both evidence and attachments field names
+            const attachments = caseItem.attachments || caseItem.evidence || [];
+
+            const htmlContent = `
+                <div class="space-y-6">
+                    <!-- Case Header Info -->
+                    <div class="bg-gradient-to-r from-primary to-blue-600 text-white p-6 rounded-lg">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-xs font-semibold opacity-80 mb-1">CASE ID</p>
+                                <p class="text-2xl font-bold">${caseItem.caseId || '-'}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs font-semibold opacity-80 mb-1">STATUS</p>
+                                <p class="text-xl font-bold uppercase">${capitalizeStatus(caseItem.status)}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Key Details Grid -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <p class="text-xs text-gray-500 font-semibold mb-1">INCIDENT TYPE</p>
+                            <p class="text-on-surface font-semibold">${capitalizeIncident(incidentTypes)}</p>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <p class="text-xs text-gray-500 font-semibold mb-1">REPORTED DATE</p>
+                            <p class="text-on-surface">${reportedDate}</p>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-4 col-span-2">
+                            <p class="text-xs text-gray-500 font-semibold mb-1">ASSIGNED EXPERT</p>
+                            <p class="text-on-surface">${assignedOfficer}</p>
+                        </div>
+                    </div>
+
+                    <!-- Platform Info -->
+                    ${caseItem.platform ? `
+                    <div class="bg-purple-50 border border-purple-200 rounded-lg p-5">
+                        <p class="text-sm text-gray-600 font-semibold mb-3">PLATFORM(S)</p>
+                        <p class="text-on-surface">${Array.isArray(caseItem.platform) ? caseItem.platform.join(', ') : caseItem.platform}</p>
+                    </div>
+                    ` : ''}
+
+                    <!-- Description Section -->
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-5">
+                        <p class="text-sm text-gray-600 font-semibold mb-3">INCIDENT DESCRIPTION</p>
+                        <p class="text-on-surface leading-relaxed whitespace-pre-wrap">${caseItem.description || 'No description provided'}</p>
+                    </div>
+
+                    <!-- Evidence/Attachments -->
+                    ${attachments && attachments.length > 0 ? `
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-5">
+                        <p class="text-sm text-gray-600 font-semibold mb-3">
+                            <span class="material-symbols-outlined inline text-lg align-text-bottom mr-1">attach_file</span>
+                            EVIDENCE (${attachments.length})
+                        </p>
+                        <ul class="space-y-2">
+                            ${attachments.map(file => `
+                                <li class="flex items-center gap-2 text-on-surface">
+                                    <span class="material-symbols-outlined text-sm">file_present</span>
+                                    ${file.url ? `<a href="${file.url}" class="text-primary hover:underline font-medium" target="_blank">${file.type || 'Evidence'}</a>` : `<span class="text-on-surface">${file.type || 'Evidence'}</span>`}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+
+                    <!-- Notes -->
+                    ${caseItem.notes ? `
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-5">
+                        <p class="text-sm text-gray-600 font-semibold mb-3">NOTES</p>
+                        <p class="text-on-surface leading-relaxed whitespace-pre-wrap">${caseItem.notes}</p>
+                    </div>
+                    ` : ''}
+
+                    <!-- AI Analysis -->
+                    ${caseItem.aiAnalysis ? `
+                    <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-5">
+                        <p class="text-sm text-gray-600 font-semibold mb-3">AI ANALYSIS</p>
+                        <div class="space-y-2">
+                            ${caseItem.aiAnalysis.riskLevel ? `<p class="text-on-surface"><strong>Risk Level:</strong> ${caseItem.aiAnalysis.riskLevel}</p>` : ''}
+                            ${caseItem.aiAnalysis.threatPattern ? `<p class="text-on-surface"><strong>Threat Pattern:</strong> ${caseItem.aiAnalysis.threatPattern}</p>` : ''}
+                            ${caseItem.aiAnalysis.recommendations && caseItem.aiAnalysis.recommendations.length > 0 ? `
+                            <div>
+                                <strong class="text-on-surface">Recommendations:</strong>
+                                <ul class="list-disc list-inside text-on-surface text-sm mt-1">
+                                    ${caseItem.aiAnalysis.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                                </ul>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                    ` : ''}
+
+                    <!-- Timeline -->
+                    <div class="border-t border-gray-200 pt-4">
+                        <p class="text-sm text-gray-600 font-semibold mb-4">CASE TIMELINE</p>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between py-2 border-b border-gray-100">
+                                <span class="text-gray-600">Created:</span>
+                                <span class="font-medium text-on-surface">${new Date(caseItem.createdAt).toLocaleString()}</span>
+                            </div>
+                            <div class="flex justify-between py-2">
+                                <span class="text-gray-600">Last Updated:</span>
+                                <span class="font-medium text-on-surface">${new Date(caseItem.updatedAt).toLocaleString()}</span>
+                            </div>
+                            ${caseItem.resolvedAt ? `
+                            <div class="flex justify-between py-2">
+                                <span class="text-gray-600">Resolved:</span>
+                                <span class="font-medium text-on-surface">${new Date(caseItem.resolvedAt).toLocaleString()}</span>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('caseDetailsContent').innerHTML = htmlContent;
         }
     </script>
     <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>

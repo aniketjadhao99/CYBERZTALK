@@ -16,5 +16,6 @@ router.post('/login', login);
 // Protected routes
 router.get('/me', protect, getCurrentUser);
 router.put('/profile', protect, updateProfile);
+router.put('/update-profile', protect, updateProfile); // Alias for frontend compatibility
 
 export default router;
