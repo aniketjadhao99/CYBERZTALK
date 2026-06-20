@@ -298,7 +298,7 @@
         async function loadUserCases() {
             try {
                 const authToken = localStorage.getItem('authToken');
-                const response = await fetch('/api/cases/user', {
+                const response = await fetch(`${window.API_BASE_URL}/cases/user`, {
                     headers: {
                         'Authorization': `Bearer ${authToken}`
                     }
