@@ -1,6 +1,19 @@
 // Cyberztalk Frontend Integration
 // This file contains utilities for connecting to the backend API
 
+// Dynamic API Base URL detection for local and production environments
+const getAPIBaseURL = () => {
+    if (window.API_BASE_URL) {
+        return window.API_BASE_URL;
+    }
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        return 'http://localhost:5000/api';
+    }
+    return '/api';
+};
+
+const API_BASE_URL = getAPIBaseURL();
+
 export const storeAuthToken = (token) => {
     localStorage.setItem('authToken', token);
 };
@@ -50,7 +63,7 @@ export const fetchWithAuth = async (url, options = {}) => {
 export const initializeDashboard = async () => {
     try {
         // Fetch dashboard statistics
-        const response = await fetchWithAuth('http://localhost:5000/api/cases/stats');
+        const response = await fetchWithAuth(`${API_BASE_URL}/cases/stats`);
         if (response.success) {
             updateDashboardUI(response.data);
         }
@@ -78,7 +91,7 @@ export const updateDashboardUI = (stats) => {
 // Load user profile
 export const loadUserProfile = async () => {
     try {
-        const response = await fetchWithAuth('http://localhost:5000/api/auth/me');
+        const response = await fetchWithAuth(`${API_BASE_URL}/auth/me`);
         if (response.success) {
             localStorage.setItem('currentUser', JSON.stringify(response.data));
             return response.data;
@@ -92,7 +105,7 @@ export const loadUserProfile = async () => {
 export const loadCases = async (filters = {}) => {
     try {
         const queryString = new URLSearchParams(filters).toString();
-        const url = `http://localhost:5000/api/cases/all?${queryString}`;
+        const url = `${API_BASE_URL}/cases/all?${queryString}`;
         const response = await fetchWithAuth(url);
         return response;
     } catch (error) {
@@ -104,7 +117,7 @@ export const loadCases = async (filters = {}) => {
 // Create new case
 export const createIncidentCase = async (caseData) => {
     try {
-        const response = await fetchWithAuth('http://localhost:5000/api/cases/create', {
+        const response = await fetchWithAuth(`${API_BASE_URL}/cases/create`, {
             method: 'POST',
             body: JSON.stringify(caseData)
         });
@@ -119,7 +132,7 @@ export const createIncidentCase = async (caseData) => {
 export const loadResources = async (filters = {}) => {
     try {
         const queryString = new URLSearchParams(filters).toString();
-        const url = `http://localhost:5000/api/resources/all?${queryString}`;
+        const url = `${API_BASE_URL}/resources/all?${queryString}`;
         const response = await fetch(url);
         return await response.json();
     } catch (error) {
@@ -131,7 +144,7 @@ export const loadResources = async (filters = {}) => {
 // Load featured resources
 export const loadFeaturedResources = async () => {
     try {
-        const response = await fetch('http://localhost:5000/api/resources/featured');
+        const response = await fetch(`${API_BASE_URL}/resources/featured`);
         return await response.json();
     } catch (error) {
         console.error('Error loading featured resources:', error);
@@ -141,7 +154,8 @@ export const loadFeaturedResources = async () => {
 
 // Socket.io connection for real-time chat
 export const initializeSocket = () => {
-    const socket = io('http://localhost:5000', {
+    const socketURL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:5000' : window.location.origin;
+    const socket = io(socketURL, {
         auth: {
             token: getAuthToken()
         }

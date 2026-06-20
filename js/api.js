@@ -1,5 +1,20 @@
-// API Configuration
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+// API Configuration - Dynamic URL detection for local and production environments
+const getAPIBaseURL = () => {
+    // Check if window.API_BASE_URL is manually set
+    if (window.API_BASE_URL) {
+        return window.API_BASE_URL;
+    }
+
+    // Check if we're on localhost
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        return 'http://localhost:5000/api';
+    }
+
+    // For production, use relative path (same domain)
+    return '/api';
+};
+
+const API_BASE_URL = getAPIBaseURL();
 const API_TIMEOUT = 30000;
 
 class APIClient {
