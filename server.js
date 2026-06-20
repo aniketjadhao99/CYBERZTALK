@@ -36,8 +36,13 @@ app.use(cors({
     credentials: true
 }));
 
-// Serve static files
-app.use(express.static('public'));
+// Serve static files from root directory
+app.use(express.static('.'));
+
+// Serve index.html for root path
+app.get('/', (req, res) => {
+    res.sendFile('./index.html', { root: '.' });
+});
 
 // API Routes
 app.use('/api/auth', authRoutes);
