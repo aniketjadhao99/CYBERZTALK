@@ -7,8 +7,8 @@ const getAPIBaseURL = () => {
         return 'http://localhost:5000/api';
     }
 
-    // For production, use relative path (same domain)
-    return '/api';
+    // For production, use deployed API on Render
+    return 'https://cyberztalk-api.onrender.com/api';
 };
 
 // Set global variable for API base URL
