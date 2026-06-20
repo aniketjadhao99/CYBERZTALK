@@ -308,7 +308,8 @@
                     throw new Error('Failed to load cases');
                 }
 
-                const cases = await response.json();
+                const data = await response.json();
+                const cases = data.data || data;
                 document.getElementById('loadingSpinner').classList.add('hidden');
 
                 if (cases.length === 0) {
