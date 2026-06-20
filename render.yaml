@@ -10,22 +10,6 @@ services:
         value: production
       - key: PORT
         value: 5000
-      - key: MONGODB_URI
-        scope: build
-      - key: JWT_SECRET
-        scope: build
-      - key: EMAIL_HOST
-        scope: build
-      - key: EMAIL_PORT
-        scope: build
-      - key: EMAIL_USER
-        scope: build
-      - key: EMAIL_PASS
-        scope: build
-      - key: EMAIL_FROM
-        scope: build
-      - key: EMAIL_TO
-        scope: build
       - key: FRONTEND_URL
         value: https://palegreen-llama-259442.hostingersite.com
       - key: SOCKET_IO_CORS_ORIGIN
