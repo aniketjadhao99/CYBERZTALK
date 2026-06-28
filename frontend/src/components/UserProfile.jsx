@@ -65,11 +65,13 @@ export default function UserProfile({ onBackClick }) {
           <h1 className="text-2xl sm:text-3xl font-bold">My Profile</h1>
           <div className="flex items-center gap-2">
             <button
-              className="sm:hidden inline-flex items-center justify-center rounded-lg border border-slate-600 bg-slate-800/80 p-2"
+              className="sm:hidden flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-lg border border-slate-600 bg-slate-800/90 text-white shadow-sm shadow-slate-950/40"
               onClick={() => setIsMenuOpen((prev) => !prev)}
               aria-label="Toggle menu"
             >
-              ☰
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
             </button>
             <button
               onClick={handleBack}
