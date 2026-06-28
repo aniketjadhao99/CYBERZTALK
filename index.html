@@ -105,11 +105,27 @@
                     <a href="resources.html" class="nav-item text-on-surface font-body text-sm font-medium hover:text-primary">Resources</a>
                     <a href="about-us.html" class="nav-item text-on-surface font-body text-sm font-medium hover:text-primary">About Us</a>
                 </div>
-                <div class="flex items-center gap-4">
-                    <a id="navLoginLink" href="login.html" class="text-primary font-body text-sm font-medium hover:text-on-primary-container">Login</a>
-                    <a id="navGetStartedLink" href="get-started.html" class="bg-primary text-on-primary px-6 py-2 rounded font-body text-sm font-medium hover:bg-on-primary-container transition-colors">Get Started</a>
+                <div class="flex items-center gap-3">
+                    <button id="mobileMenuButton" type="button" class="md:hidden inline-flex h-11 w-11 items-center justify-center rounded-lg border border-slate-200 bg-white text-primary shadow-sm" aria-label="Toggle navigation menu" aria-expanded="false">
+                        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                    <a id="navLoginLink" href="login.html" class="hidden sm:inline-flex text-primary font-body text-sm font-medium hover:text-on-primary-container">Login</a>
+                    <a id="navGetStartedLink" href="get-started.html" class="hidden sm:inline-flex bg-primary text-on-primary px-6 py-2 rounded font-body text-sm font-medium hover:bg-on-primary-container transition-colors">Get Started</a>
                     <span id="navAdminLinkContainer" class="hidden"></span>
                     <span id="navLogoutLinkContainer" class="hidden"></span>
+                </div>
+            </div>
+            <div id="mobileMenu" class="md:hidden hidden mt-3 rounded-lg border border-slate-200 bg-white p-3 shadow-sm">
+                <div class="flex flex-col gap-2">
+                    <a href="index.html" class="nav-item active px-2 py-2 text-on-surface font-body text-sm font-medium hover:text-primary">Home</a>
+                    <a href="features.html" class="nav-item px-2 py-2 text-on-surface font-body text-sm font-medium hover:text-primary">Features</a>
+                    <a href="report-incident.html" class="nav-item px-2 py-2 text-on-surface font-body text-sm font-medium hover:text-primary">Report Incident</a>
+                    <a href="resources.html" class="nav-item px-2 py-2 text-on-surface font-body text-sm font-medium hover:text-primary">Resources</a>
+                    <a href="about-us.html" class="nav-item px-2 py-2 text-on-surface font-body text-sm font-medium hover:text-primary">About Us</a>
+                    <a href="login.html" class="px-2 py-2 text-primary font-body text-sm font-medium">Login</a>
+                    <a href="get-started.html" class="px-2 py-2 text-primary font-body text-sm font-medium">Get Started</a>
                 </div>
             </div>
         </div>
@@ -318,5 +334,17 @@
     <script src="js/authNav.js"></script>
     <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>
     <script src="https://files.bpcontent.cloud/2025/08/18/16/20250818161034-MUUJRN8F.js" defer></script>
+    <script>
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                const isHidden = mobileMenu.classList.contains('hidden');
+                mobileMenu.classList.toggle('hidden', !isHidden);
+                mobileMenuButton.setAttribute('aria-expanded', String(isHidden));
+            });
+        }
+    </script>
 </body>
 </html>
