@@ -45,12 +45,26 @@ const authNavInit = () => {
         const menuButton = document.getElementById('mobileMenuButton');
         const menu = document.getElementById('mobileMenu');
 
-        if (menuButton && menu && menuButton.getAttribute('data-mobile-menu-bound') !== 'true') {
-            menuButton.setAttribute('data-mobile-menu-bound', 'true');
-            menuButton.addEventListener('click', () => {
+        if (menuButton && menu) {
+            // Remove any existing listeners by cloning the button
+            const newMenuButton = menuButton.cloneNode(true);
+            menuButton.parentElement.replaceChild(newMenuButton, menuButton);
+            
+            // Add fresh event listener
+            newMenuButton.addEventListener('click', (e) => {
+                e.stopPropagation();
                 const isHidden = menu.classList.contains('hidden');
                 menu.classList.toggle('hidden', !isHidden);
-                menuButton.setAttribute('aria-expanded', String(isHidden));
+                newMenuButton.setAttribute('aria-expanded', String(isHidden));
+            });
+
+            // Close menu when clicking on a link
+            const menuLinks = menu.querySelectorAll('a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    menu.classList.add('hidden');
+                    newMenuButton.setAttribute('aria-expanded', 'false');
+                });
             });
         }
     }
