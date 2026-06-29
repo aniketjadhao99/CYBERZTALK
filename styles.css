@@ -353,8 +353,8 @@ footer a:hover {
     }
 
     /* Hide 24/7 Availability tag on mobile */
-    .absolute.bottom-20.right-4 {
-        display: none;
+    .availability-tag {
+        display: none !important;
     }
 }
 
