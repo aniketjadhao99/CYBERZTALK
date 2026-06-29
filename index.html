@@ -339,6 +339,7 @@
         const mobileMenu = document.getElementById('mobileMenu');
 
         if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.setAttribute('data-mobile-menu-bound', 'true');
             mobileMenuButton.addEventListener('click', () => {
                 const isHidden = mobileMenu.classList.contains('hidden');
                 mobileMenu.classList.toggle('hidden', !isHidden);

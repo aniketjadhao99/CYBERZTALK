@@ -351,6 +351,11 @@ footer a:hover {
         width: 100%;
         margin-bottom: 0.5rem;
     }
+
+    /* Hide 24/7 Availability tag on mobile */
+    .absolute.bottom-20.right-4 {
+        display: none;
+    }
 }
 
 /* Print Styles */
