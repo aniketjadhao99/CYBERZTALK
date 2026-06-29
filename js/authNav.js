@@ -45,17 +45,15 @@ const authNavInit = () => {
         const menuButton = document.getElementById('mobileMenuButton');
         const menu = document.getElementById('mobileMenu');
 
-        if (menuButton && menu) {
-            // Remove any existing listeners by cloning the button
-            const newMenuButton = menuButton.cloneNode(true);
-            menuButton.parentElement.replaceChild(newMenuButton, menuButton);
+        if (menuButton && menu && !menuButton.hasAttribute('data-menu-listener-added')) {
+            menuButton.setAttribute('data-menu-listener-added', 'true');
             
-            // Add fresh event listener
-            newMenuButton.addEventListener('click', (e) => {
+            // Add event listener to toggle menu
+            menuButton.addEventListener('click', (e) => {
                 e.stopPropagation();
                 const isHidden = menu.classList.contains('hidden');
                 menu.classList.toggle('hidden', !isHidden);
-                newMenuButton.setAttribute('aria-expanded', String(isHidden));
+                menuButton.setAttribute('aria-expanded', String(isHidden));
             });
 
             // Close menu when clicking on a link
@@ -63,7 +61,7 @@ const authNavInit = () => {
             menuLinks.forEach(link => {
                 link.addEventListener('click', () => {
                     menu.classList.add('hidden');
-                    newMenuButton.setAttribute('aria-expanded', 'false');
+                    menuButton.setAttribute('aria-expanded', 'false');
                 });
             });
         }
