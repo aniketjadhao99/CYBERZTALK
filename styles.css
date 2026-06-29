@@ -356,6 +356,18 @@ footer a:hover {
     .availability-tag {
         display: none !important;
     }
+
+    
+
+    #menu {
+        display: node;
+    }
+
+    #mobileMenuButton {
+        display:block;
+    }
+
+
 }
 
 /* Print Styles */
