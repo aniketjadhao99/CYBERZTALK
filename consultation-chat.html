@@ -33,7 +33,10 @@
         document.getElementById('messageForm').addEventListener('submit', async event => { event.preventDefault(); const input = document.getElementById('messageInput'); const message = input.value.trim(); if (!message) return; try { const response = await fetch(`${window.API_BASE_URL}/chat/message/send`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ conversationId, message }) }); const result = await response.json(); if (!response.ok || !result.success) throw new Error(result.message || 'Unable to send message'); input.value = ''; if (socket?.connected) socket.emit('send-message', { conversationId, message, sender: currentUser._id, senderName: currentUser.fullName }); await loadMessages(); } catch (error) { showError(error.message); } });
         loadMessages();
         connectRealtime();
-        setInterval(loadMessages, 5000);
+        setInterval(loadMessages, 2000);
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) loadMessages();
+        });
     </script>
 </body>
 </html>
