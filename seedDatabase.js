@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import User from './backend/models/User.js';
+import ExpertProfile from './backend/models/ExpertProfile.js';
 import Resource from './backend/models/Resource.js';
 import connectDB from './backend/config/database.js';
 
@@ -128,7 +129,8 @@ const seedDatabase = async () => {
                 fullName: 'Dr. Sarah Jenkins',
                 email: 'sarah.jenkins@cyberztalk.com',
                 password: 'SecurePassword123!',
-                phone: '+1-555-0123',
+                phone: '+91 98765 43210',
+                location: 'Bengaluru, Karnataka',
                 role: 'expert',
                 expertise: ['phishing', 'malware', 'forensics'],
                 isVerified: true,
@@ -138,7 +140,8 @@ const seedDatabase = async () => {
                 fullName: 'Alex Chen',
                 email: 'alex.chen@cyberztalk.com',
                 password: 'SecurePassword123!',
-                phone: '+1-555-0124',
+                phone: '+91 98765 43211',
+                location: 'Mumbai, Maharashtra',
                 role: 'expert',
                 expertise: ['identity-theft', 'financial-fraud'],
                 isVerified: true,
@@ -148,7 +151,8 @@ const seedDatabase = async () => {
                 fullName: 'Elena Vasquez',
                 email: 'elena.vasquez@cyberztalk.com',
                 password: 'SecurePassword123!',
-                phone: '+1-555-0125',
+                phone: '+91 98765 43212',
+                location: 'New Delhi, Delhi',
                 role: 'admin',
                 isVerified: true,
                 isActive: true
@@ -157,11 +161,50 @@ const seedDatabase = async () => {
 
         // Check if demo users exist before creating
         for (const userData of demoUsers) {
-            const userExists = await User.findOne({ email: userData.email });
-            if (!userExists) {
-                const user = new User(userData);
+            let user = await User.findOne({ email: userData.email });
+            if (!user) {
+                user = new User(userData);
                 await user.save();
                 console.log(`✅ Created demo user: ${userData.fullName}`);
+            } else {
+                user.phone = userData.phone;
+                user.location = userData.location;
+                user.role = userData.role;
+                user.expertise = userData.expertise;
+                await user.save();
+                console.log(`✅ Updated demo user: ${userData.fullName}`);
+            }
+
+            if (userData.role === 'expert') {
+                const expert = user;
+                const profileDefaults = userData.fullName.includes('Sarah')
+                    ? {
+                        headline: 'Cybercrime Response Specialist',
+                        bio: 'Helps victims respond to phishing, malware, and digital evidence concerns.',
+                        specialties: ['phishing', 'malware', 'forensics'],
+                        yearsOfExperience: 10,
+                        feePerMinute: 2,
+                        credentials: ['Certified Cybercrime Investigator'],
+                        languages: ['English', 'Hindi', 'Kannada'],
+                        availability: 'available'
+                    }
+                    : {
+                        headline: 'Financial Fraud & Identity Protection Expert',
+                        bio: 'Supports victims through financial fraud recovery and identity protection steps.',
+                        specialties: ['identity-theft', 'financial-fraud'],
+                        yearsOfExperience: 8,
+                        feePerMinute: 1.5,
+                        credentials: ['Certified Fraud Examiner'],
+                        languages: ['English', 'Hindi', 'Marathi'],
+                        availability: 'available'
+                    };
+
+                await ExpertProfile.findOneAndUpdate(
+                    { user: expert._id },
+                    { user: expert._id, ...profileDefaults, isPublic: true, isApproved: true },
+                    { upsert: true, new: true, runValidators: true }
+                );
+                console.log(`✅ Created expert profile: ${userData.fullName}`);
             }
         }
 

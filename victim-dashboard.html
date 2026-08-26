@@ -196,6 +196,21 @@
             </div>
         </section>
 
+        <section class="mb-8">
+            <div class="flex items-end justify-between mb-6">
+                <div><p class="text-sm font-semibold text-primary uppercase tracking-wide">Personal guidance</p><h2 class="text-2xl font-bold text-primary mt-1">Find an expert</h2><p class="text-sm text-gray-600 mt-1">Choose a cybersecurity specialist for a private consultation.</p></div>
+            </div>
+            <div id="expertsLoading" class="bg-white rounded-lg shadow-sm p-8 text-center text-gray-500">Loading available experts...</div>
+            <div id="expertsList" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+            <div id="bookingMessage" class="hidden mt-4 rounded-lg px-4 py-3 text-sm"></div>
+        </section>
+
+        <section class="mb-8 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <h2 class="text-xl font-bold text-primary">Your consultations</h2>
+            <p class="text-sm text-gray-600 mt-1 mb-4">Track requests and join confirmed sessions.</p>
+            <div id="myBookingsList" class="space-y-3"><p class="text-sm text-gray-500">Loading consultations...</p></div>
+        </section>
+
         <!-- Cases Records Section -->
         <section class="mb-8">
             <h2 class="text-2xl font-bold text-primary mb-6">Your Case Records</h2>
@@ -346,7 +361,57 @@
 
             // Load user cases
             loadUserCases();
+            loadExperts();
+            loadMyBookings();
         });
+
+        async function loadExperts() {
+            try {
+                const response = await fetch(`${window.API_BASE_URL}/bookings/experts`, { headers: { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` } });
+                const result = await response.json();
+                if (!response.ok || !result.success) throw new Error(result.message || 'Unable to load experts');
+                const experts = result.data || [];
+                document.getElementById('expertsLoading').classList.add('hidden');
+                const list = document.getElementById('expertsList');
+                if (!experts.length) { list.innerHTML = '<div class="bg-white rounded-lg p-6 text-gray-500">No approved experts are available yet.</div>'; list.classList.remove('hidden'); return; }
+                list.innerHTML = experts.map(profile => {
+                    const expert = profile.user || {};
+                    return `<article class="bg-white rounded-lg shadow-sm border border-gray-200 p-5"><div class="flex items-start gap-3"><div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center font-bold">${(expert.fullName || 'E').charAt(0)}</div><div><h3 class="font-bold text-on-surface">${expert.fullName || 'Cybersecurity Expert'}</h3><p class="text-sm text-primary mt-1">${profile.headline || 'Cybersecurity specialist'}</p></div></div><p class="text-sm text-gray-600 mt-4 line-clamp-2">${profile.bio || 'Available to help you understand and respond to your cyber incident.'}</p><div class="flex flex-wrap gap-2 mt-4">${(profile.specialties || []).slice(0, 3).map(item => `<span class="bg-sky-50 text-primary rounded px-2 py-1 text-xs">${capitalizeIncident(item)}</span>`).join('')}</div><div class="flex items-center justify-between mt-5"><span class="text-sm ${availabilityColor(profile.availability)}">${capitalizeIncident(profile.availability || 'available')} · ₹${Number(profile.feePerMinute || 0).toFixed(2)}/min</span><a href="expert-profile.html?id=${expert._id}" class="text-sm font-semibold text-primary hover:text-on-surface">View profile</a></div></article>`;
+                }).join('');
+                list.classList.remove('hidden');
+            } catch (error) { document.getElementById('expertsLoading').textContent = 'Unable to load experts right now.'; }
+        }
+
+        function openBookingForm(expertId, expertName) {
+            const date = prompt(`Choose a date and time for your consultation with ${expertName}.\nExample: 2026-09-01T14:30`);
+            if (!date) return;
+            const note = prompt('Briefly describe what you need help with (optional):') || '';
+            createBooking(expertId, date, note);
+        }
+
+        async function createBooking(expertId, preferredDate, note) {
+            try {
+                const response = await fetch(`${window.API_BASE_URL}/bookings`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${localStorage.getItem('authToken')}` }, body: JSON.stringify({ expertId, preferredDate, note, durationMinutes: 30 }) });
+                const result = await response.json();
+                const message = document.getElementById('bookingMessage');
+                message.textContent = result.message || 'Booking request sent.';
+                message.className = `mt-4 rounded-lg px-4 py-3 text-sm ${result.success ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`;
+                message.classList.remove('hidden');
+                if (result.success) loadMyBookings();
+            } catch (error) { document.getElementById('bookingMessage').textContent = 'Unable to send booking request.'; document.getElementById('bookingMessage').classList.remove('hidden'); }
+        }
+
+        async function loadMyBookings() {
+            try {
+                const response = await fetch(`${window.API_BASE_URL}/bookings/mine`, { headers: { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` } });
+                const result = await response.json();
+                if (!response.ok || !result.success) throw new Error(result.message || 'Unable to load consultations');
+                const bookings = result.data || [];
+                const list = document.getElementById('myBookingsList');
+                if (!bookings.length) { list.innerHTML = '<p class="text-sm text-gray-500">You have not booked a consultation yet.</p>'; return; }
+                list.innerHTML = bookings.map(booking => `<div class="border border-gray-200 rounded-lg p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3"><div><p class="font-semibold">${booking.expert?.fullName || 'Cybersecurity Expert'}</p><p class="text-sm text-gray-500 mt-1">${new Date(booking.preferredDate).toLocaleString()} · ${booking.durationMinutes} minutes</p></div><div class="flex items-center gap-2"><span class="rounded px-2 py-1 text-xs font-semibold ${booking.status === 'confirmed' ? 'bg-green-50 text-green-700' : booking.status === 'cancelled' ? 'bg-red-50 text-red-700' : 'bg-amber-50 text-amber-700'}">${capitalizeStatus(booking.status)}</span>${booking.status === 'confirmed' && booking.conversation ? `<a href="consultation-chat.html?conversation=${booking.conversation._id}" class="bg-primary text-white rounded px-3 py-2 text-xs font-semibold">Open session</a>` : ''}</div></div>`).join('');
+            } catch (error) { document.getElementById('myBookingsList').innerHTML = '<p class="text-sm text-red-600">Unable to load consultations.</p>'; }
+        }
 
         function loadUserProfile(user) {
             document.getElementById('profileName').textContent = user.fullName || user.name || '-';
@@ -546,6 +611,10 @@
                 'closed': 'Closed'
             };
             return statusMap[status] || status;
+        }
+
+        function availabilityColor(value) {
+            return value === 'offline' ? 'text-red-700' : value === 'busy' ? 'text-yellow-700' : 'text-green-700';
         }
 
         function capitalizeIncident(incident) {

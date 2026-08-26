@@ -4,9 +4,10 @@ import {
     getAllCases,
     getCaseById,
     updateCaseStatus,
-    getUserCases
+    getUserCases,
+    getExpertCases
 } from '../controllers/caseController.js';
-import { protect } from '../middleware/auth.js';
+import { protect, authorize } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -14,8 +15,9 @@ const router = express.Router();
 router.post('/create', protect, createCase);
 router.get('/all', protect, getAllCases);
 router.get('/user', protect, getUserCases);
+router.get('/expert', protect, authorize('expert'), getExpertCases);
 router.get('/:id', protect, getCaseById);
-router.patch('/:id', protect, updateCaseStatus);
-router.put('/:id', protect, updateCaseStatus);
+router.patch('/:id', protect, authorize('expert', 'admin'), updateCaseStatus);
+router.put('/:id', protect, authorize('expert', 'admin'), updateCaseStatus);
 
 export default router;

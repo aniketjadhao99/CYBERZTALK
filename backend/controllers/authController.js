@@ -1,4 +1,5 @@
 import User from '../models/User.js';
+import ExpertProfile from '../models/ExpertProfile.js';
 import { generateToken, generateRefreshToken } from '../utils/tokenUtils.js';
 
 // Register User
@@ -24,16 +25,22 @@ export const register = async (req, res) => {
         }
 
         // Create user
+        const selectedRole = ['victim', 'expert'].includes(role) ? role : 'victim';
+
         user = new User({
             fullName,
             email,
             password,
             phone,
             location,
-            role: role || 'victim'
+            role: selectedRole
         });
 
         await user.save();
+
+        if (selectedRole === 'expert') {
+            await ExpertProfile.create({ user: user._id, isApproved: true });
+        }
 
         // Generate tokens
         const token = generateToken(user._id);

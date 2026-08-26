@@ -12,6 +12,7 @@ import authRoutes from './backend/routes/authRoutes.js';
 import caseRoutes from './backend/routes/caseRoutes.js';
 import chatRoutes from './backend/routes/chatRoutes.js';
 import resourceRoutes from './backend/routes/resourceRoutes.js';
+import bookingRoutes from './backend/routes/bookingRoutes.js';
 
 // Initialize Express
 const app = express();
@@ -55,6 +56,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/cases', caseRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/resources', resourceRoutes);
+app.use('/api/bookings', bookingRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

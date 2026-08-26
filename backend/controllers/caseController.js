@@ -193,6 +193,22 @@ export const updateCaseStatus = async (req, res) => {
         if (priority) updateData.priority = priority;
         if (assignedExpert) updateData.assignedExpert = assignedExpert;
 
+        const existingCase = await Case.findById(caseId).select('assignedExpert');
+
+        if (!existingCase) {
+            return res.status(404).json({
+                success: false,
+                message: 'Case not found'
+            });
+        }
+
+        if (req.userRole === 'expert' && String(existingCase.assignedExpert) !== String(req.userId)) {
+            return res.status(403).json({
+                success: false,
+                message: 'You can only update cases assigned to you'
+            });
+        }
+
         const updatedCase = await Case.findByIdAndUpdate(caseId, updateData, { new: true });
 
         if (!updatedCase) {
@@ -236,6 +252,27 @@ export const getUserCases = async (req, res) => {
         res.status(500).json({
             success: false,
             message: 'Error fetching cases'
+        });
+    }
+};
+
+// Get cases assigned to the current expert
+export const getExpertCases = async (req, res) => {
+    try {
+        const cases = await Case.find({ assignedExpert: req.userId })
+            .populate('victim', 'fullName email phone location avatar')
+            .sort({ createdAt: -1 });
+
+        res.json({
+            success: true,
+            data: cases,
+            total: cases.length
+        });
+    } catch (error) {
+        console.error('❌ [CASE ERROR] Error fetching expert cases:', error.message);
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching assigned cases'
         });
     }
 };

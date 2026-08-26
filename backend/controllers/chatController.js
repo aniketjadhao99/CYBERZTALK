@@ -58,6 +58,8 @@ export const getUserConversations = async (req, res) => {
 export const getConversationMessages = async (req, res) => {
     try {
         const { conversationId } = req.params;
+        const conversation = await Conversation.findOne({ _id: conversationId, participants: req.userId });
+        if (!conversation) return res.status(403).json({ success: false, message: 'You cannot access this conversation' });
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 20;
         const skip = (page - 1) * limit;
@@ -98,6 +100,9 @@ export const sendMessage = async (req, res) => {
                 message: 'Please provide a message'
             });
         }
+
+        const conversation = await Conversation.findOne({ _id: conversationId, participants: req.userId, isActive: true });
+        if (!conversation) return res.status(403).json({ success: false, message: 'You cannot send messages in this conversation' });
 
         const chatMessage = await ChatMessage.create({
             conversationId,

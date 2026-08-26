@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultation Session - Cyberztalk</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="js/config.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>body { font-family: Inter, sans-serif; background: #f5f7fa; } h1, h2 { font-family: Geist, sans-serif; }</style>
+    <script id="tailwind-config">tailwind.config = { theme: { extend: { colors: { primary: '#006688', 'on-surface': '#131b2e' } } } };</script>
+</head>
+<body class="min-h-screen text-on-surface">
+    <header class="bg-white border-b border-gray-200"><div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between"><a href="index.html" class="flex items-center gap-3 text-primary font-bold text-xl"><span class="w-9 h-9 rounded bg-primary text-white flex items-center justify-center">C</span>Cyberztalk</a><a id="backLink" href="index.html" class="text-sm font-semibold text-primary">Back to dashboard</a></div></header>
+    <main class="max-w-4xl mx-auto px-4 py-8"><div class="mb-6"><p class="text-sm text-primary font-semibold uppercase tracking-wide">Private consultation</p><h1 class="text-3xl font-bold mt-2">Consultation session</h1><p class="text-gray-600 mt-2">Your conversation is private to the victim and assigned expert.</p></div><section class="bg-white rounded-lg border border-gray-200 overflow-hidden"><div id="messages" class="min-h-[420px] max-h-[60vh] overflow-y-auto p-5 space-y-4"><p class="text-center text-gray-500 py-10">Loading messages...</p></div><form id="messageForm" class="border-t border-gray-200 p-4 flex gap-3"><input id="messageInput" class="flex-1 rounded border-gray-300" placeholder="Write a message..." required maxlength="2000"><button class="bg-primary text-white rounded px-5 py-2 font-semibold">Send</button></form></section><p id="error" class="hidden mt-4 rounded bg-red-50 text-red-700 px-4 py-3 text-sm"></p></main>
+    <script>
+        const token = localStorage.getItem('authToken');
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+        const conversationId = new URLSearchParams(window.location.search).get('conversation');
+        if (!token || !currentUser || !conversationId) window.location.href = 'login.html';
+        document.getElementById('backLink').href = currentUser?.role === 'expert' ? 'expert-dashboard.html' : 'victim-dashboard.html';
+
+        function showError(message) { const element = document.getElementById('error'); element.textContent = message; element.classList.remove('hidden'); }
+        function renderMessages(messages) {
+            const container = document.getElementById('messages');
+            if (!messages.length) { container.innerHTML = '<p class="text-center text-gray-500 py-10">Start the consultation by sending a message.</p>'; return; }
+            container.innerHTML = messages.map(item => { const mine = String(item.sender?._id || item.sender) === String(currentUser._id); return `<div class="flex ${mine ? 'justify-end' : 'justify-start'}"><div class="max-w-[80%] rounded-lg px-4 py-3 ${mine ? 'bg-primary text-white' : 'bg-gray-100 text-on-surface'}"><p class="text-sm whitespace-pre-wrap">${item.message}</p><p class="text-xs mt-2 opacity-70">${new Date(item.createdAt).toLocaleString()}</p></div></div>`; }).join(''); container.scrollTop = container.scrollHeight; }
+        async function loadMessages() { try { const response = await fetch(`${window.API_BASE_URL}/chat/conversation/${conversationId}`, { headers: { Authorization: `Bearer ${token}` } }); const result = await response.json(); if (!response.ok || !result.success) throw new Error(result.message || 'Unable to load session'); renderMessages(result.data || []); } catch (error) { showError(error.message); } }
+        document.getElementById('messageForm').addEventListener('submit', async event => { event.preventDefault(); const input = document.getElementById('messageInput'); const message = input.value.trim(); if (!message) return; try { const response = await fetch(`${window.API_BASE_URL}/chat/message/send`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ conversationId, message }) }); const result = await response.json(); if (!response.ok || !result.success) throw new Error(result.message || 'Unable to send message'); input.value = ''; await loadMessages(); } catch (error) { showError(error.message); } });
+        loadMessages();
+    </script>
+</body>
+</html>

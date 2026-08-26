@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expert Workspace - Cyberztalk</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="js/config.js"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#006688',
+                        secondary: '#006b5f',
+                        surface: '#f5f7fa',
+                        'on-surface': '#131b2e'
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        :root { --primary: #006688; }
+        body { font-family: 'Inter', sans-serif; background: #f5f7fa; }
+        h1, h2, h3, h4 { font-family: 'Geist', sans-serif; }
+        .status-new { background: #e0f2fe; color: #0369a1; }
+        .status-assigned { background: #dbeafe; color: #1d4ed8; }
+        .status-in-progress { background: #fef3c7; color: #92400e; }
+        .status-escalated { background: #fee2e2; color: #b91c1c; }
+        .status-under-review { background: #f3e8ff; color: #7e22ce; }
+        .status-resolved { background: #dcfce7; color: #166534; }
+        .status-closed { background: #e5e7eb; color: #374151; }
+    </style>
+</head>
+<body class="min-h-screen text-on-surface">
+    <nav class="bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3">
+                <span class="w-9 h-9 rounded bg-primary text-white flex items-center justify-center font-bold">C</span>
+                <span class="text-xl font-bold text-primary">Cyberztalk</span>
+            </a>
+            <div class="flex items-center gap-4">
+                <span class="hidden sm:inline text-sm text-gray-500">Expert Workspace</span>
+                <span id="expertName" class="text-sm font-semibold"></span>
+                <button onclick="logout()" class="text-sm font-semibold text-primary hover:text-on-surface">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <header class="mb-8">
+            <p class="text-sm font-semibold text-primary uppercase tracking-wide">Assigned support</p>
+            <h1 class="text-3xl sm:text-4xl font-bold mt-2">Victim cases</h1>
+            <p class="text-gray-600 mt-2">Review your assigned cases and keep each victim updated.</p>
+        </header>
+
+        <section class="bg-white rounded-lg border border-gray-200 p-6 mb-8">
+            <div class="flex items-start justify-between gap-4 mb-5"><div><p class="text-sm font-semibold text-primary uppercase tracking-wide">Your public profile</p><h2 class="text-xl font-bold mt-1">Edit expert profile</h2><p class="text-sm text-gray-500 mt-1">Help victims understand your experience before they book.</p></div><span class="text-sm font-semibold text-primary">Fees in ₹ per minute</span></div>
+            <form id="expertProfileForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div><label for="profileHeadline" class="block text-sm font-semibold mb-2">Professional headline</label><input id="profileHeadline" maxlength="120" class="w-full rounded border-gray-300" placeholder="Cybercrime Response Specialist" required></div>
+                <div><label for="profileLocation" class="block text-sm font-semibold mb-2">Location</label><input id="profileLocation" maxlength="100" class="w-full rounded border-gray-300" placeholder="Mumbai, Maharashtra"></div>
+                <div><label for="profileFee" class="block text-sm font-semibold mb-2">Consultation fee (₹ / minute)</label><input id="profileFee" type="number" min="0" step="0.5" class="w-full rounded border-gray-300" required></div>
+                <div><label for="profileExperience" class="block text-sm font-semibold mb-2">Years of experience</label><input id="profileExperience" type="number" min="0" max="60" class="w-full rounded border-gray-300"></div>
+                <div class="md:col-span-2"><label for="profileBio" class="block text-sm font-semibold mb-2">About you</label><textarea id="profileBio" maxlength="1000" rows="3" class="w-full rounded border-gray-300" placeholder="Tell victims how you can help."></textarea></div>
+                <div><label for="profileSpecialties" class="block text-sm font-semibold mb-2">Specialties</label><select id="profileSpecialties" multiple class="w-full rounded border-gray-300 h-32"><option value="phishing">Phishing</option><option value="malware">Malware</option><option value="identity-theft">Identity theft</option><option value="financial-fraud">Financial fraud</option><option value="harassment">Harassment</option><option value="forensics">Digital forensics</option><option value="other">Other</option></select></div>
+                <div><label for="profileCredentials" class="block text-sm font-semibold mb-2">Credentials</label><input id="profileCredentials" class="w-full rounded border-gray-300" placeholder="Certified Fraud Examiner, CEH"><label for="profileLanguages" class="block text-sm font-semibold mt-4 mb-2">Languages</label><input id="profileLanguages" class="w-full rounded border-gray-300" placeholder="English, Hindi, Marathi"></div>
+                <div><label for="profileAvailability" class="block text-sm font-semibold mb-2">Availability</label><select id="profileAvailability" class="w-full rounded border-gray-300"><option value="available">Available</option><option value="busy">Busy</option><option value="offline">Offline</option></select></div>
+                <label class="flex items-center gap-2 text-sm font-semibold"><input id="profilePublic" type="checkbox" class="rounded" checked> Show my profile to victims</label>
+                <div class="md:col-span-2 flex items-center gap-4"><button type="submit" class="bg-primary text-white rounded px-5 py-2.5 font-semibold hover:bg-on-surface">Save profile</button><span id="profileMessage" class="hidden text-sm"></span></div>
+            </form>
+        </section>
+
+        <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div class="bg-white rounded-lg p-5 border border-gray-200"><p class="text-sm text-gray-500">Total assigned</p><p id="totalCount" class="text-3xl font-bold text-primary mt-2">0</p></div>
+            <div class="bg-white rounded-lg p-5 border border-gray-200"><p class="text-sm text-gray-500">New requests</p><p id="newCount" class="text-3xl font-bold text-sky-700 mt-2">0</p></div>
+            <div class="bg-white rounded-lg p-5 border border-gray-200"><p class="text-sm text-gray-500">In progress</p><p id="progressCount" class="text-3xl font-bold text-amber-700 mt-2">0</p></div>
+            <div class="bg-white rounded-lg p-5 border border-gray-200"><p class="text-sm text-gray-500">Resolved</p><p id="resolvedCount" class="text-3xl font-bold text-green-700 mt-2">0</p></div>
+        </section>
+
+        <section class="bg-white rounded-lg border border-gray-200 overflow-hidden mb-8">
+            <div class="px-5 py-4 border-b border-gray-200"><h2 class="text-lg font-bold">Consultation bookings</h2><p class="text-sm text-gray-500 mt-1">Requests from victims who selected your profile</p></div>
+            <div id="bookingsList" class="divide-y divide-gray-100 p-5"><p class="text-sm text-gray-500">Loading bookings...</p></div>
+        </section>
+
+        <div id="message" class="hidden mb-6 rounded-lg px-4 py-3 text-sm"></div>
+        <section class="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
+            <div class="lg:col-span-3 bg-white rounded-lg border border-gray-200 overflow-hidden">
+                <div class="px-5 py-4 border-b border-gray-200 flex items-center justify-between">
+                    <div><h2 class="text-lg font-bold">Your bookings</h2><p class="text-sm text-gray-500 mt-1">Victim cases assigned to you</p></div>
+                    <button onclick="loadCases()" title="Refresh cases" class="w-9 h-9 rounded border border-gray-200 text-primary hover:bg-sky-50 flex items-center justify-center"><span class="material-symbols-outlined">refresh</span></button>
+                </div>
+                <div id="casesList" class="divide-y divide-gray-100">
+                    <div class="p-8 text-center text-gray-500"><span class="material-symbols-outlined animate-spin text-2xl">progress_activity</span><p class="mt-2">Loading assigned cases...</p></div>
+                </div>
+            </div>
+
+            <aside id="caseDetails" class="lg:col-span-2 bg-white rounded-lg border border-gray-200 p-6 lg:sticky lg:top-6">
+                <div class="text-center py-8 text-gray-500"><span class="material-symbols-outlined text-4xl text-gray-300">assignment_ind</span><p class="mt-3">Select a case to view details.</p></div>
+            </aside>
+        </section>
+    </main>
+
+    <script>
+        const token = localStorage.getItem('authToken');
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+        let cases = [];
+
+        if (!token || !currentUser || currentUser.role !== 'expert') {
+            window.location.href = 'login.html';
+        } else {
+            document.getElementById('expertName').textContent = currentUser.fullName || 'Expert';
+            updatePresence(true);
+            setInterval(() => updatePresence(true), 30000);
+            loadExpertProfile();
+            loadCases();
+            loadBookings();
+        }
+
+        function updatePresence(isOnline) {
+            return fetch(`${window.API_BASE_URL}/bookings/expert-presence`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+                body: JSON.stringify({ isOnline }),
+                keepalive: !isOnline
+            }).catch(() => undefined);
+        }
+
+        window.addEventListener('pagehide', () => updatePresence(false));
+
+        function showMessage(text, isError = true) {
+            const message = document.getElementById('message');
+            message.textContent = text;
+            message.className = `mb-6 rounded-lg px-4 py-3 text-sm ${isError ? 'bg-red-50 text-red-700' : 'bg-green-50 text-green-700'}`;
+        }
+
+        async function loadExpertProfile() {
+            try {
+                const response = await fetch(`${window.API_BASE_URL}/bookings/expert-profile`, { headers: { Authorization: `Bearer ${token}` } });
+                const result = await response.json();
+                if (!response.ok || !result.success) throw new Error(result.message);
+                const profile = result.data;
+                document.getElementById('profileHeadline').value = profile.headline || '';
+                document.getElementById('profileLocation').value = profile.location || profile.user?.location || '';
+                document.getElementById('profileFee').value = profile.feePerMinute ?? 0;
+                document.getElementById('profileExperience').value = profile.yearsOfExperience ?? 0;
+                document.getElementById('profileBio').value = profile.bio || '';
+                document.getElementById('profileCredentials').value = (profile.credentials || []).join(', ');
+                document.getElementById('profileLanguages').value = (profile.languages || []).join(', ');
+                document.getElementById('profileAvailability').value = profile.availability || 'offline';
+                document.getElementById('profilePublic').checked = profile.isPublic !== false;
+                Array.from(document.getElementById('profileSpecialties').options).forEach(option => { option.selected = (profile.specialties || []).includes(option.value); });
+            } catch (error) { showProfileMessage(error.message || 'Unable to load your profile', true); }
+        }
+
+        function showProfileMessage(text, isError) { const message = document.getElementById('profileMessage'); message.textContent = text; message.className = `text-sm ${isError ? 'text-red-700' : 'text-green-700'}`; }
+
+        document.getElementById('expertProfileForm').addEventListener('submit', async event => {
+            event.preventDefault();
+            const profileData = { headline: document.getElementById('profileHeadline').value, location: document.getElementById('profileLocation').value, feePerMinute: Number(document.getElementById('profileFee').value), yearsOfExperience: Number(document.getElementById('profileExperience').value || 0), bio: document.getElementById('profileBio').value, specialties: Array.from(document.getElementById('profileSpecialties').selectedOptions).map(option => option.value), credentials: document.getElementById('profileCredentials').value.split(',').map(value => value.trim()).filter(Boolean), languages: document.getElementById('profileLanguages').value.split(',').map(value => value.trim()).filter(Boolean), availability: document.getElementById('profileAvailability').value, isPublic: document.getElementById('profilePublic').checked };
+            try { const response = await fetch(`${window.API_BASE_URL}/bookings/expert-profile`, { method: 'PUT', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify(profileData) }); const result = await response.json(); if (!response.ok || !result.success) throw new Error(result.message || 'Unable to save profile'); showProfileMessage('Profile saved successfully.', false); } catch (error) { showProfileMessage(error.message, true); }
+        });
+
+        async function loadCases() {
+            try {
+                const response = await fetch(`${window.API_BASE_URL}/cases/expert`, { headers: { Authorization: `Bearer ${token}` } });
+                const result = await response.json();
+                if (!response.ok || !result.success) throw new Error(result.message || 'Unable to load cases');
+                cases = result.data || [];
+                renderSummary();
+                renderCases();
+            } catch (error) {
+                document.getElementById('casesList').innerHTML = '<div class="p-8 text-center text-gray-500">Unable to load assigned cases.</div>';
+                showMessage(error.message);
+            }
+        }
+
+        async function loadBookings() {
+            try {
+                const response = await fetch(`${window.API_BASE_URL}/bookings/mine`, { headers: { Authorization: `Bearer ${token}` } });
+                const result = await response.json();
+                if (!response.ok || !result.success) throw new Error(result.message || 'Unable to load bookings');
+                const bookings = result.data || [];
+                const list = document.getElementById('bookingsList');
+                if (!bookings.length) { list.innerHTML = '<p class="text-sm text-gray-500 py-4">No consultation requests yet.</p>'; return; }
+                list.innerHTML = bookings.map(booking => `<div class="py-4 first:pt-0 last:pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-4"><div><p class="font-semibold">${booking.victim?.fullName || 'Victim'}</p><p class="text-sm text-gray-500 mt-1">${new Date(booking.preferredDate).toLocaleString()} · ${booking.durationMinutes} minutes</p>${booking.note ? `<p class="text-sm text-gray-600 mt-2">${booking.note}</p>` : ''}</div><div class="flex items-center gap-2"><span class="rounded px-2 py-1 text-xs font-semibold ${booking.status === 'confirmed' ? 'bg-green-50 text-green-700' : booking.status === 'cancelled' ? 'bg-red-50 text-red-700' : 'bg-amber-50 text-amber-700'}">${formatLabel(booking.status)}</span>${booking.status === 'pending' ? `<button onclick="updateBooking('${booking._id}', 'confirmed')" class="bg-primary text-white rounded px-3 py-2 text-xs font-semibold">Confirm</button>` : ''}${booking.status === 'confirmed' && booking.conversation ? `<a href="consultation-chat.html?conversation=${booking.conversation._id}" class="border border-primary text-primary rounded px-3 py-2 text-xs font-semibold">Open session</a>` : ''}${booking.status === 'confirmed' ? `<button onclick="updateBooking('${booking._id}', 'completed')" class="border border-primary text-primary rounded px-3 py-2 text-xs font-semibold">Complete</button>` : ''}<button onclick="updateBooking('${booking._id}', 'cancelled')" class="border border-red-200 text-red-700 rounded px-3 py-2 text-xs font-semibold">Cancel</button></div></div>`).join('');
+            } catch (error) { document.getElementById('bookingsList').innerHTML = '<p class="text-sm text-red-600 py-4">Unable to load consultation bookings.</p>'; }
+        }
+
+        async function updateBooking(id, status) {
+            try {
+                const response = await fetch(`${window.API_BASE_URL}/bookings/${id}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ status }) });
+                const result = await response.json();
+                if (!response.ok || !result.success) throw new Error(result.message || 'Unable to update booking');
+                showMessage('Booking updated.', false);
+                loadBookings();
+            } catch (error) { showMessage(error.message); }
+        }
+
+        function renderSummary() {
+            const count = status => cases.filter(item => item.status === status).length;
+            document.getElementById('totalCount').textContent = cases.length;
+            document.getElementById('newCount').textContent = count('new');
+            document.getElementById('progressCount').textContent = count('in-progress') + count('under-review');
+            document.getElementById('resolvedCount').textContent = count('resolved') + count('closed');
+        }
+
+        function formatLabel(value) {
+            return (value || 'unknown').replaceAll('-', ' ').replace(/\b\w/g, letter => letter.toUpperCase());
+        }
+
+        function renderCases() {
+            const list = document.getElementById('casesList');
+            if (!cases.length) {
+                list.innerHTML = '<div class="p-10 text-center text-gray-500"><span class="material-symbols-outlined text-4xl text-gray-300">inbox</span><p class="mt-3">No cases are assigned to you yet.</p></div>';
+                return;
+            }
+            list.innerHTML = cases.map(item => `
+                <button onclick="showDetails('${item._id}')" class="w-full text-left p-5 hover:bg-sky-50 transition-colors">
+                    <div class="flex items-start justify-between gap-3">
+                        <div><p class="font-bold text-primary">${item.caseId || 'Case'}</p><p class="font-semibold mt-1">${item.victimInfo?.fullName || item.victim?.fullName || 'Victim'}</p></div>
+                        <span class="status-${item.status} rounded px-2 py-1 text-xs font-semibold whitespace-nowrap">${formatLabel(item.status)}</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-gray-500 mt-3"><span class="material-symbols-outlined text-base">report</span>${(item.incidentType || []).map(formatLabel).join(', ') || 'Incident'}<span class="mx-1">•</span>${new Date(item.createdAt).toLocaleDateString()}</div>
+                </button>`).join('');
+        }
+
+        function showDetails(id) {
+            const item = cases.find(caseItem => caseItem._id === id);
+            if (!item) return;
+            const victim = item.victimInfo || item.victim || {};
+            document.getElementById('caseDetails').innerHTML = `
+                <div class="flex items-start justify-between gap-3 border-b border-gray-200 pb-4"><div><p class="text-sm text-primary font-bold">${item.caseId || 'Case'}</p><h2 class="text-xl font-bold mt-1">${victim.fullName || 'Victim'}</h2></div><span class="status-${item.status} rounded px-2 py-1 text-xs font-semibold">${formatLabel(item.status)}</span></div>
+                <div class="space-y-4 py-5 text-sm"><div><p class="text-gray-500">Contact</p><p class="font-medium mt-1">${victim.email || 'Not provided'}</p><p class="text-gray-600">${victim.phone || 'No phone provided'}</p></div><div><p class="text-gray-500">Incident</p><p class="font-medium mt-1">${(item.incidentType || []).map(formatLabel).join(', ')}</p><p class="text-gray-600">Platform: ${(item.platform || []).map(formatLabel).join(', ')}</p></div><div><p class="text-gray-500">Victim description</p><p class="text-gray-700 mt-1 leading-6">${item.description || 'No description provided.'}</p></div></div>
+                <label for="statusSelect" class="block text-sm font-semibold mb-2">Update case status</label><select id="statusSelect" class="w-full rounded border-gray-300 mb-3"><option value="assigned">Assigned</option><option value="in-progress">In progress</option><option value="under-review">Under review</option><option value="escalated">Escalated</option><option value="resolved">Resolved</option></select><button onclick="updateStatus('${item._id}')" class="w-full bg-primary text-white rounded py-3 font-semibold hover:bg-on-surface transition-colors">Save status</button>`;
+            document.getElementById('statusSelect').value = item.status === 'new' ? 'assigned' : item.status;
+        }
+
+        async function updateStatus(id) {
+            const status = document.getElementById('statusSelect').value;
+            try {
+                const response = await fetch(`${window.API_BASE_URL}/cases/${id}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ status }) });
+                const result = await response.json();
+                if (!response.ok || !result.success) throw new Error(result.message || 'Unable to update status');
+                showMessage('Case status updated.', false);
+                await loadCases();
+                showDetails(id);
+            } catch (error) { showMessage(error.message); }
+        }
+
+        function logout() { updatePresence(false).finally(() => { localStorage.removeItem('authToken'); localStorage.removeItem('currentUser'); window.location.href = 'login.html'; }); }
+    </script>
+</body>
+</html>

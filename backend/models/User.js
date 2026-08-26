@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        match: [/^[+]?[(]?[0-9]{1,4}[)]?[-\s.]?[(]?[0-9]{1,4}[)]?[-\s.]?[0-9]{1,9}$/, 'Please provide a valid phone number']
+        match: [/^(?:\+91[\s-]?)?[6-9]\d{4}[\s-]?\d{5}$/, 'Please provide a valid Indian phone number']
     },
     location: {
         type: String,
@@ -50,6 +50,14 @@ const userSchema = new mongoose.Schema({
     isActive: {
         type: Boolean,
         default: true
+    },
+    isOnline: {
+        type: Boolean,
+        default: false
+    },
+    lastSeen: {
+        type: Date,
+        default: null
     },
     createdAt: {
         type: Date,

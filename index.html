@@ -175,6 +175,29 @@
         </div>
     </section>
 
+    <!-- Expert Profiles Section -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 bg-surface">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+                <div>
+                    <p class="text-sm font-semibold text-primary uppercase tracking-wide">Trusted guidance</p>
+                    <h2 class="text-4xl font-headline font-bold text-on-surface mt-2">Meet Our Experts</h2>
+                    <p class="text-lg text-on-surface mt-3 max-w-2xl">Connect with experienced cybersecurity professionals who can guide you through your next step.</p>
+                </div>
+                <a href="get-started.html" class="inline-flex items-center justify-center bg-primary text-white px-6 py-3 rounded font-headline font-semibold hover:bg-on-primary-container transition-colors">Find your expert</a>
+            </div>
+            <div id="homeExpertsLoading" class="bg-white rounded-lg border border-gray-200 p-8 text-center text-gray-500">Loading expert profiles...</div>
+            <div id="homeExpertsList" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </div>
+    </section>
+
+    <section class="bg-primary text-white py-6 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div><h2 class="font-headline font-bold text-xl">Need to report online financial fraud?</h2><p class="text-sm text-blue-100 mt-1">Call the Indian Cyber Crime Helpline at 1930 or use the National Cyber Crime Reporting Portal.</p></div>
+            <a href="https://www.cybercrime.gov.in/" target="_blank" rel="noopener" class="shrink-0 bg-white text-primary px-5 py-2.5 rounded font-semibold hover:bg-blue-50">Report at cybercrime.gov.in</a>
+        </div>
+    </section>
+
     <!-- Cyber Crimes & Trending Section -->
     <section class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div class="max-w-7xl mx-auto">
@@ -322,7 +345,45 @@
         </div>
     </footer>
 
+    <script src="js/config.js"></script>
     <script>
+        async function loadHomeExperts() {
+            const loading = document.getElementById('homeExpertsLoading');
+            const list = document.getElementById('homeExpertsList');
+            try {
+                const response = await fetch(`${window.API_BASE_URL}/bookings/experts`);
+                const result = await response.json();
+                if (!response.ok || !result.success) throw new Error('Unable to load experts');
+                const profiles = result.data || [];
+                loading.classList.add('hidden');
+                if (!profiles.length) {
+                    loading.textContent = 'Expert profiles will appear here soon.';
+                    loading.classList.remove('hidden');
+                    return;
+                }
+                list.innerHTML = profiles.map(profile => {
+                    const expert = profile.user || {};
+                    const firstLetter = (expert.fullName || 'E').charAt(0).toUpperCase();
+                    const specialties = (profile.specialties || []).slice(0, 3).map(item => `<span class="bg-sky-50 text-primary rounded px-2 py-1 text-xs font-medium">${formatExpertLabel(item)}</span>`).join('');
+                    return `<article class="bg-white rounded-lg border border-gray-200 p-6 card-hover"><div class="flex items-start gap-4"><div class="w-14 h-14 rounded-full bg-primary text-white flex items-center justify-center text-xl font-bold">${firstLetter}</div><div><h3 class="text-xl font-headline font-bold text-on-surface">${expert.fullName || 'Cybersecurity Expert'}</h3><p class="text-sm text-primary font-semibold mt-1">${profile.headline || 'Cybersecurity specialist'}</p></div></div><p class="text-sm text-gray-600 leading-6 mt-5 min-h-[72px]">${profile.bio || 'Ready to help you understand and respond to a cyber incident.'}</p><div class="flex flex-wrap gap-2 mt-4">${specialties || '<span class="text-xs text-gray-500">General cybercrime support</span>'}</div><div class="flex items-center justify-between mt-6 pt-4 border-t border-gray-100"><span class="flex items-center gap-1.5 text-sm ${availabilityColor(profile.availability)}"><span class="w-2 h-2 rounded-full ${availabilityDot(profile.availability)}"></span>${formatExpertLabel(profile.availability || 'available')} · ${moneyLabel(profile.feePerMinute)} / min</span><a href="expert-profile.html?id=${expert._id}" class="text-sm font-semibold text-primary hover:text-on-surface">View profile</a></div></article>`;
+                }).join('');
+                list.classList.remove('hidden');
+            } catch (error) {
+                loading.textContent = 'Expert profiles are temporarily unavailable.';
+            }
+        }
+
+        function formatExpertLabel(value) {
+            return value.replaceAll('-', ' ').replace(/\b\w/g, letter => letter.toUpperCase());
+        }
+
+        function moneyLabel(value) {
+            return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR' }).format(Number(value || 0));
+        }
+
+        function availabilityColor(value) { return value === 'offline' ? 'text-red-700' : value === 'busy' ? 'text-yellow-700' : 'text-green-700'; }
+        function availabilityDot(value) { return value === 'offline' ? 'bg-red-500' : value === 'busy' ? 'bg-yellow-500' : 'bg-green-500'; }
+
         // Navigation active state
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', function() {
@@ -330,6 +391,7 @@
                 this.classList.add('active');
             });
         });
+        loadHomeExperts();
     </script>
     <script src="js/authNav.js"></script>
     <script src="https://cdn.botpress.cloud/webchat/v3.6/inject.js"></script>

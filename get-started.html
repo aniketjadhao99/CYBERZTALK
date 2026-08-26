@@ -55,6 +55,28 @@
                         <input type="email" name="email" placeholder="your@email.com" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
                     </div>
 
+                    <fieldset>
+                        <legend class="block text-sm font-semibold text-on-surface mb-2">I am joining as <span class="text-red-500">*</span></legend>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="role" value="victim" class="peer sr-only" checked>
+                                <span class="block border-2 border-gray-200 rounded-lg p-4 peer-checked:border-primary peer-checked:bg-blue-50 transition-colors">
+                                    <span class="material-symbols-outlined text-primary">person</span>
+                                    <span class="block font-semibold text-on-surface mt-1">Victim</span>
+                                    <span class="block text-xs text-gray-500 mt-1">Get support and book an expert</span>
+                                </span>
+                            </label>
+                            <label class="relative cursor-pointer">
+                                <input type="radio" name="role" value="expert" class="peer sr-only">
+                                <span class="block border-2 border-gray-200 rounded-lg p-4 peer-checked:border-primary peer-checked:bg-blue-50 transition-colors">
+                                    <span class="material-symbols-outlined text-primary">support_agent</span>
+                                    <span class="block font-semibold text-on-surface mt-1">Expert</span>
+                                    <span class="block text-xs text-gray-500 mt-1">Create a profile and help victims</span>
+                                </span>
+                            </label>
+                        </div>
+                    </fieldset>
+
                     <div>
                         <label class="block text-sm font-semibold text-on-surface mb-2">Password <span class="text-red-500">*</span></label>
                         <input type="password" name="password" placeholder="Create a strong password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" required>
@@ -109,6 +131,7 @@
             const email = form.querySelector('input[name="email"]').value;
             const password = form.querySelector('input[name="password"]').value;
             const confirmPassword = form.querySelector('input[name="confirmPassword"]').value;
+            const role = form.querySelector('input[name="role"]:checked').value;
 
             // Validation
             if (password !== confirmPassword) {
@@ -131,7 +154,7 @@
                         fullName,
                         email,
                         password,
-                        role: 'victim'
+                        role
                     })
                 });
 
@@ -142,8 +165,7 @@
                     // Auto-login the user
                     localStorage.setItem('authToken', result.data.token);
                     localStorage.setItem('currentUser', JSON.stringify(result.data.user));
-                    // Redirect to victim dashboard instead of homepage
-                    window.location.href = 'victim-dashboard.html';
+                    window.location.href = role === 'expert' ? 'expert-dashboard.html' : 'victim-dashboard.html';
                 } else {
                     alert(`Error: ${result.message}`);
                 }
