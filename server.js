@@ -63,6 +63,7 @@ app.get('/api/health', (req, res) => {
     res.status(200).json({
         success: true,
         message: 'Cyberztalk API is running',
+        version: '1.1.0-expert-consultations',
         timestamp: new Date().toISOString()
     });
 });
