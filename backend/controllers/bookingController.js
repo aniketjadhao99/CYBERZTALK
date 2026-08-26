@@ -17,7 +17,7 @@ const withLiveAvailability = profile => {
 
 export const getPublicExperts = async (req, res) => {
     try {
-        const profiles = await ExpertProfile.find({ isPublic: true, isApproved: true })
+        const profiles = await ExpertProfile.find({ isPublic: true })
             .populate('user', 'fullName email avatar location isOnline lastSeen')
             .sort({ createdAt: -1 });
 
@@ -29,7 +29,7 @@ export const getPublicExperts = async (req, res) => {
 
 export const getPublicExpert = async (req, res) => {
     try {
-        const profile = await ExpertProfile.findOne({ user: req.params.expertId, isPublic: true, isApproved: true })
+        const profile = await ExpertProfile.findOne({ user: req.params.expertId, isPublic: true })
             .populate('user', 'fullName email avatar location phone isActive isOnline lastSeen');
         if (!profile || !profile.user || profile.user.isActive === false) {
             return res.status(404).json({ success: false, message: 'Expert profile not found' });
@@ -90,7 +90,7 @@ export const createBooking = async (req, res) => {
     try {
         const { expertId, preferredDate, durationMinutes, note } = req.body;
         const expert = await User.findOne({ _id: expertId, role: 'expert', isActive: true });
-        const profile = await ExpertProfile.findOne({ user: expertId, isPublic: true, isApproved: true });
+        const profile = await ExpertProfile.findOne({ user: expertId, isPublic: true });
 
         if (!expert || !profile) {
             return res.status(404).json({ success: false, message: 'This expert is not available for booking' });
