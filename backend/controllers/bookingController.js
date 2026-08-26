@@ -17,11 +17,21 @@ const withLiveAvailability = profile => {
 
 export const getPublicExperts = async (req, res) => {
     try {
-        const profiles = await ExpertProfile.find({ isPublic: true })
-            .populate('user', 'fullName email avatar location isOnline lastSeen')
+        const experts = await User.find({ role: 'expert', isActive: true })
+            .select('fullName email avatar location isOnline lastSeen')
             .sort({ createdAt: -1 });
+        const profiles = await Promise.all(experts.map(async expert => {
+            let profile = await ExpertProfile.findOne({ user: expert._id });
+            if (!profile) {
+                profile = await ExpertProfile.create({ user: expert._id, isPublic: true, isApproved: true });
+            }
+            if (profile.isPublic === false) return null;
+            profile.user = expert;
+            return withLiveAvailability(profile);
+        }));
+        const visibleProfiles = profiles.filter(Boolean);
 
-        res.json({ success: true, data: profiles.map(withLiveAvailability), total: profiles.length });
+        res.json({ success: true, data: visibleProfiles, total: visibleProfiles.length });
     } catch (error) {
         res.status(500).json({ success: false, message: 'Error fetching expert profiles' });
     }
@@ -29,9 +39,11 @@ export const getPublicExperts = async (req, res) => {
 
 export const getPublicExpert = async (req, res) => {
     try {
-        const profile = await ExpertProfile.findOne({ user: req.params.expertId, isPublic: true })
-            .populate('user', 'fullName email avatar location phone isActive isOnline lastSeen');
-        if (!profile || !profile.user || profile.user.isActive === false) {
+        const expert = await User.findOne({ _id: req.params.expertId, role: 'expert', isActive: true })
+            .select('fullName email avatar location phone isActive isOnline lastSeen');
+        const profile = expert ? await ExpertProfile.findOne({ user: expert._id }) : null;
+        if (profile && profile.isPublic !== false) profile.user = expert;
+        if (!profile || profile.isPublic === false) {
             return res.status(404).json({ success: false, message: 'Expert profile not found' });
         }
         res.json({ success: true, data: withLiveAvailability(profile) });
